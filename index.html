@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohesif Leasing — Financement matériel professionnel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0d1b2a;
+  --gold: #b8963e;
+  --gold-light: #d4ae5a;
+  --white: #ffffff;
+  --off-white: #f8f7f4;
+  --border: #e4e1db;
+  --text: #0d1b2a;
+  --muted: #6b6560;
+  --light-muted: #9a9690;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 72px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+}
+
+.nav-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--navy); }
+
+.nav-cta {
+  background: var(--navy) !important;
+  color: var(--white) !important;
+  padding: 11px 24px;
+  border-radius: 2px;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+}
+
+.nav-cta:hover { background: #1a2d42 !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  padding: 120px 56px 80px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  color: #b0aa9e;
+  margin-bottom: 36px;
+  line-height: 1.2;
+}
+
+.hero-desc {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--navy);
+  color: var(--white);
+  padding: 15px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover { background: #1a2d42; }
+
+.btn-secondary {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid var(--navy);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.btn-secondary:hover { opacity: 0.6; }
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+}
+
+.hero-stat {
+  background: var(--white);
+  padding: 36px 40px;
+}
+
+.hero-stat-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 44px;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.hero-stat-number span { color: var(--gold); font-size: 28px; }
+
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--light-muted);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* SECTION BASE */
+.section {
+  padding: 100px 56px;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px, 3.5vw, 46px);
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 56px;
+  max-width: 560px;
+}
+
+/* HOW */
+.how { background: var(--white); border-bottom: 1px solid var(--border); }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px;
+}
+
+.step-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--navy);
+  display: inline-block;
+}
+
+.step h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.step p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* SIMULATOR */
+.simulator { background: var(--off-white); border-bottom: 1px solid var(--border); }
+
+.sim-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.sim-desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+.sim-detail { display: flex; flex-direction: column; }
+
+.sim-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sim-row-label { font-size: 13px; color: var(--muted); }
+.sim-row-value { font-size: 14px; font-weight: 600; color: var(--navy); }
+.sim-row-value.gold { color: var(--gold); }
+
+.sim-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 40px;
+}
+
+.sim-box h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 32px;
+}
+
+.field { margin-bottom: 20px; }
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--light-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.field input, .field select {
+  width: 100%;
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 13px 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+
+.field input:focus, .field select:focus { border-color: var(--navy); }
+
+.sim-result {
+  border-top: 2px solid var(--navy);
+  padding-top: 24px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.sim-result-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sim-result-value {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.sim-result-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* MATERIEL */
+.materiel { background: var(--white); border-bottom: 1px solid var(--border); }
+
+.mat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+}
+
+.mat-card {
+  background: var(--white);
+  padding: 40px;
+  transition: background 0.2s;
+}
+
+.mat-card:hover { background: var(--off-white); }
+
+.mat-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.mat-card p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.mat-range {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+/* ELIGIBILITE */
+.eligibilite { background: var(--off-white); border-bottom: 1px solid var(--border); }
+
+.elig-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.elig-list { list-style: none; }
+
+.elig-item {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.elig-item strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.elig-item span {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.elig-box {
+  background: var(--navy);
+  padding: 48px;
+}
+
+.elig-box-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.elig-box h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 20px;
+}
+
+.elig-box p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  border: 1px solid rgba(184,150,62,0.35);
+  padding: 6px 14px;
+  letter-spacing: 0.04em;
+}
+
+/* CONTACT */
+.contact { background: var(--white); }
+
+.contact-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-inner .section-title {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-sub {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 48px;
+  margin-top: -24px;
+}
+
+.form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form input, .form select, .form textarea {
+  width: 100%;
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--navy);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  resize: none;
+}
+
+.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--navy); }
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--light-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.form-group { display: flex; flex-direction: column; }
+
+.form-submit {
+  width: 100%;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 17px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+
+.form-submit:hover { background: #1a2d42; }
+
+.form-note {
+  font-size: 12px;
+  color: var(--light-muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.confirm {
+  display: none;
+  padding: 40px;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--navy);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* FOOTER */
+footer {
+  background: var(--off-white);
+  border-top: 1px solid var(--border);
+  padding: 40px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-logo img { height: 32px; width: auto; }
+
+.footer-links { display: flex; gap: 28px; list-style: none; }
+.footer-links a { font-size: 12px; color: var(--light-muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--navy); }
+
+.footer-copy { font-size: 12px; color: var(--light-muted); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 24px 64px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .hero-right { display: none; }
+  .section { padding: 72px 24px; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .sim-layout { grid-template-columns: 1fr; gap: 40px; }
+  .mat-grid { grid-template-columns: 1fr 1fr; }
+  .elig-layout { grid-template-columns: 1fr; gap: 40px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span style="font-family:Inter,sans-serif;font-weight:700;font-size:18px;color:#0d1b2a;letter-spacing:0.04em;">COHESIF <span style="font-weight:300;color:#b8963e;letter-spacing:0.08em;">LEASING</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#fonctionnement">Fonctionnement</a></li>
+    <li><a href="#materiel">Matériels</a></li>
+    <li><a href="#simulateur">Simulateur</a></li>
+    <li><a href="#contact" class="nav-cta">Déposer un dossier</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-label">Financement professionnel B2B</div>
+      <h1 class="hero-title">Votre matériel,<br><em>sans attendre.</em></h1>
+      <p class="hero-sub">Réponse sous 48 heures.</p>
+      <p class="hero-desc">Minipelles, nacelles, véhicules utilitaires, équipements industriels — nous finançons votre matériel professionnel jusqu'à 150 000 € HT. Réservé aux professionnels.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Déposer un dossier</a>
+        <a href="#simulateur" class="btn-secondary">Simuler mon financement</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-number">48<span>h</span></div>
+        <div class="hero-stat-label">Délai de réponse</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">150<span>k€</span></div>
+        <div class="hero-stat-label">Financement maximum</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">84<span>m</span></div>
+        <div class="hero-stat-label">Durée maximale</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">0<span>€</span></div>
+        <div class="hero-stat-label">Apport minimum</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FONCTIONNEMENT -->
+<section class="section how" id="fonctionnement">
+  <div class="section-inner">
+    <div class="section-label">Fonctionnement</div>
+    <h2 class="section-title">Simple comme un devis.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Vous choisissez votre matériel</h3>
+        <p>Minipelle, nacelle, véhicule, équipement industriel — avec ou sans fournisseur identifié.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Nous montons le dossier</h3>
+        <p>Notre équipe constitue votre dossier et le soumet à nos partenaires leaseurs sous convention cadre.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Réponse sous 48 heures</h3>
+        <p>Vous recevez une offre ferme avec vos mensualités, la durée et les conditions. Aucune surprise.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Le leaseur achète, vous utilisez</h3>
+        <p>La société de leasing achète le matériel. Vous payez vos loyers mensuels, déductibles de votre résultat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATEUR -->
+<section class="section simulator" id="simulateur">
+  <div class="section-inner">
+    <div class="sim-layout">
+      <div>
+        <div class="section-label">Simulateur</div>
+        <h2 class="section-title">Calculez votre mensualité.</h2>
+        <p class="sim-desc">Estimez le coût mensuel de votre financement. Simulation indicative — offre ferme sous 48h après dépôt du dossier.</p>
+        <div class="sim-detail">
+          <div class="sim-row">
+            <span class="sim-row-label">Valeur du matériel</span>
+            <span class="sim-row-value" id="d-montant">40 000 € HT</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-row-label">Durée</span>
+            <span class="sim-row-value" id="d-duree">60 mois</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-row-label">Mensualité estimée</span>
+            <span class="sim-row-value gold" id="d-mens">750 € HT / mois</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-row-label">Loyers déductibles</span>
+            <span class="sim-row-value">Oui, à 100 %</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-row-label">Apport requis</span>
+            <span class="sim-row-value">0 € selon dossier</span>
+          </div>
+        </div>
+      </div>
+      <div class="sim-box">
+        <h3>Simuler mon financement</h3>
+        <div class="field">
+          <label>Valeur du matériel (€ HT)</label>
+          <input type="number" id="s-montant" value="40000" min="5000" max="150000" step="1000">
+        </div>
+        <div class="field">
+          <label>Durée du financement</label>
+          <select id="s-duree">
+            <option value="24">24 mois — 2 ans</option>
+            <option value="36">36 mois — 3 ans</option>
+            <option value="48">48 mois — 4 ans</option>
+            <option value="60" selected>60 mois — 5 ans</option>
+            <option value="72">72 mois — 6 ans</option>
+            <option value="84">84 mois — 7 ans</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Type de matériel</label>
+          <select>
+            <option>Engins de chantier</option>
+            <option>Véhicules utilitaires</option>
+            <option>Équipements industriels</option>
+            <option>Matériel agricole</option>
+            <option>Nacelles / élévateurs</option>
+            <option>Autre matériel professionnel</option>
+          </select>
+        </div>
+        <div class="sim-result">
+          <div class="sim-result-label">Mensualité estimée</div>
+          <div class="sim-result-value" id="r-mens">750 € HT</div>
+          <div class="sim-result-sub">par mois sur <span id="r-duree">60</span> mois — taux indicatif</div>
+        </div>
+        <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">Déposer mon dossier</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIEL -->
+<section class="section materiel" id="materiel">
+  <div class="section-inner">
+    <div class="section-label">Matériels finançables</div>
+    <h2 class="section-title">Ce que nous finançons.</h2>
+    <div class="mat-grid">
+      <div class="mat-card">
+        <h3>Engins de chantier</h3>
+        <p>Minipelles, pelleteuses, compacteurs, chargeurs, nacelles de chantier.</p>
+        <div class="mat-range">15 000 € — 150 000 € HT</div>
+      </div>
+      <div class="mat-card">
+        <h3>Véhicules utilitaires</h3>
+        <p>Fourgons, camions, bennes, véhicules frigorifiques, flotte d'entreprise.</p>
+        <div class="mat-range">15 000 € — 80 000 € HT</div>
+      </div>
+      <div class="mat-card">
+        <h3>Équipements industriels</h3>
+        <p>Machines-outils, lignes de production, compresseurs, équipements de levage.</p>
+        <div class="mat-range">10 000 € — 150 000 € HT</div>
+      </div>
+      <div class="mat-card">
+        <h3>Matériel agricole</h3>
+        <p>Tracteurs, moissonneuses, irrigateurs, équipements de récolte.</p>
+        <div class="mat-range">20 000 € — 150 000 € HT</div>
+      </div>
+      <div class="mat-card">
+        <h3>Énergie & installations</h3>
+        <p>Panneaux solaires, systèmes de stockage, groupes électrogènes.</p>
+        <div class="mat-range">10 000 € — 100 000 € HT</div>
+      </div>
+      <div class="mat-card">
+        <h3>Autre matériel professionnel</h3>
+        <p>Tout équipement professionnel durable avec valeur de revente. Étude au cas par cas.</p>
+        <div class="mat-range">À partir de 5 000 € HT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGIBILITE -->
+<section class="section eligibilite" id="eligibilite">
+  <div class="section-inner">
+    <div class="elig-layout">
+      <div>
+        <div class="section-label">Conditions</div>
+        <h2 class="section-title">Qui peut en bénéficier ?</h2>
+        <ul class="elig-list">
+          <li class="elig-item">
+            <strong>Entreprises — TPE, PME, ETI</strong>
+            <span>SARL, SAS, SASU, SA — toute forme juridique éligible dès immatriculation.</span>
+          </li>
+          <li class="elig-item">
+            <strong>Artisans & auto-entrepreneurs</strong>
+            <span>Sous conditions de chiffre d'affaires et d'ancienneté. Dossier étudié au cas par cas.</span>
+          </li>
+          <li class="elig-item">
+            <strong>Professions libérales</strong>
+            <span>Médecins, avocats, architectes, experts-comptables.</span>
+          </li>
+          <li class="elig-item">
+            <strong>Réservé aux professionnels</strong>
+            <span>Cohesif Leasing intervient exclusivement en B2B. Aucun financement aux particuliers.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="elig-box">
+        <div class="elig-box-label">Avantages fiscaux</div>
+        <h3>Le leasing, c'est aussi un outil fiscal.</h3>
+        <p>Les loyers sont intégralement déductibles de votre résultat imposable. Vous préservez votre trésorerie, évitez l'immobilisation de capital et réduisez votre assiette fiscale chaque mois.</p>
+        <div class="tag-list">
+          <span class="tag">Loyers 100 % déductibles</span>
+          <span class="tag">TVA récupérable</span>
+          <span class="tag">Hors bilan possible</span>
+          <span class="tag">Trésorerie préservée</span>
+          <span class="tag">Option d'achat finale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div class="section-label">Déposer un dossier</div>
+      <h2 class="section-title">Prêt à financer votre matériel ?</h2>
+      <p class="contact-sub">Notre équipe revient vers vous sous 24 heures pour confirmer la faisabilité et lancer l'instruction du dossier.</p>
+
+      <div class="form" id="form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom & Nom</label>
+            <input type="text" placeholder="Jean Dupont">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Société</label>
+            <input type="text" placeholder="Dupont BTP SARL">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Téléphone</label>
+            <input type="tel" placeholder="+33 6 00 00 00 00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email professionnel</label>
+            <input type="email" placeholder="jean@dupont-btp.fr">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type de matériel</label>
+          <select>
+            <option value="">Sélectionner...</option>
+            <option>Engins de chantier</option>
+            <option>Véhicules utilitaires</option>
+            <option>Équipements industriels</option>
+            <option>Matériel agricole</option>
+            <option>Énergie & installations</option>
+            <option>Autre matériel professionnel</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Montant estimé (€ HT)</label>
+            <input type="number" placeholder="40 000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Durée souhaitée</label>
+            <select>
+              <option>24 mois</option>
+              <option>36 mois</option>
+              <option>48 mois</option>
+              <option selected>60 mois</option>
+              <option>72 mois</option>
+              <option>84 mois</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Informations complémentaires</label>
+          <textarea rows="3" placeholder="Fournisseur identifié, projet, contexte..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Envoyer ma demande</button>
+        <p class="form-note">Réponse garantie sous 24h — Données confidentielles — Aucun engagement</p>
+      </div>
+      <div class="confirm" id="confirm">
+        Votre demande a bien été reçue.<br>
+        Notre équipe vous contacte sous 24 heures.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span style="font-family:Inter,sans-serif;font-weight:700;font-size:18px;color:#0d1b2a;letter-spacing:0.04em;">COHESIF <span style="font-weight:300;color:#b8963e;letter-spacing:0.08em;">LEASING</span></span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Mentions légales</a></li>
+    <li><a href="#">CGU</a></li>
+    <li><a href="#">Confidentialité</a></li>
+    <li><a href="https://groupecohesif.fr">Groupe Cohesif</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Cohesif Leasing</div>
+</footer>
+
+<script>
+function updateCalc() {
+  const montant = parseFloat(document.getElementById('s-montant').value) || 40000;
+  const duree = parseInt(document.getElementById('s-duree').value) || 60;
+  const taux = duree <= 24 ? 0.022 : duree <= 36 ? 0.024 : duree <= 48 ? 0.026 : duree <= 60 ? 0.028 : duree <= 72 ? 0.030 : 0.032;
+  const mens = Math.round((montant * taux / 12 + montant / duree));
+  const fmt = n => n.toLocaleString('fr-FR');
+  document.getElementById('r-mens').textContent = fmt(mens) + ' € HT';
+  document.getElementById('r-duree').textContent = duree;
+  document.getElementById('d-montant').textContent = fmt(montant) + ' € HT';
+  document.getElementById('d-duree').textContent = duree + ' mois';
+  document.getElementById('d-mens').textContent = fmt(mens) + ' € HT / mois';
+}
+
+document.getElementById('s-montant').addEventListener('input', updateCalc);
+document.getElementById('s-duree').addEventListener('change', updateCalc);
+
+function submitForm() {
+  document.getElementById('form').style.display = 'none';
+  document.getElementById('confirm').style.display = 'block';
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+updateCalc();
+</script>
+</body>
+</html>
