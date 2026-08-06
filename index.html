@@ -13,18 +13,18 @@
 
 :root {
   --navy: #0d1b2a;
+  --navy-hover: #1a2d42;
   --gold: #b8963e;
-  --gold-light: #d4ae5a;
+  --gold-border: rgba(184, 150, 62, 0.35);
   --white: #ffffff;
   --off-white: #f8f7f4;
   --border: #e4e1db;
-  --text: #0d1b2a;
   --muted: #6b6560;
   --light-muted: #9a9690;
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; }
 
 /* NAV */
 nav {
@@ -79,7 +79,7 @@ nav {
   letter-spacing: 0.03em !important;
 }
 
-.nav-cta:hover { background: #1a2d42 !important; }
+.nav-cta:hover { background: var(--navy-hover) !important; }
 
 /* HERO */
 .hero {
@@ -149,7 +149,7 @@ nav {
   transition: background 0.2s;
 }
 
-.btn-primary:hover { background: #1a2d42; }
+.btn-primary:hover { background: var(--navy-hover); }
 
 .btn-secondary {
   font-size: 11px;
@@ -465,7 +465,7 @@ nav {
   font-size: 11px;
   font-weight: 600;
   color: var(--gold);
-  border: 1px solid rgba(184,150,62,0.35);
+  border: 1px solid var(--gold-border);
   padding: 6px 14px;
   letter-spacing: 0.04em;
 }
@@ -542,7 +542,7 @@ nav {
   margin-top: 8px;
 }
 
-.form-submit:hover { background: #1a2d42; }
+.form-submit:hover { background: var(--navy-hover); }
 
 .form-note {
   font-size: 12px;
