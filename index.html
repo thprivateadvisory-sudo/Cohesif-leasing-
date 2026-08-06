@@ -104,12 +104,24 @@ nav {
 }
 
 .hero-label {
-  font-size: 11px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  margin-bottom: 28px;
+  margin-bottom: 40px;
+}
+
+.hero-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
 }
 
 .hero-title {
@@ -117,7 +129,7 @@ nav {
   font-size: clamp(40px, 5vw, 64px);
   line-height: 1.05;
   color: var(--navy);
-  margin-bottom: 12px;
+  margin-bottom: 28px;
 }
 
 .hero-title em {
@@ -126,26 +138,30 @@ nav {
 }
 
 .hero-sub {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(28px, 3vw, 42px);
-  color: #b0aa9e;
-  margin-bottom: 36px;
-  line-height: 1.2;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  max-width: 480px;
 }
 
 .hero-desc {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 300;
   color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 48px;
-  max-width: 480px;
+  line-height: 1.9;
+  margin-bottom: 52px;
+  max-width: 440px;
 }
 
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 }
 
 .btn-primary {
@@ -154,10 +170,11 @@ nav {
   gap: 8px;
   background: var(--navy);
   color: var(--white);
-  padding: 15px 28px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  padding: 14px 32px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   text-decoration: none;
   border-radius: 2px;
   transition: background 0.2s;
@@ -166,8 +183,10 @@ nav {
 .btn-primary:hover { background: #1a2d42; }
 
 .btn-secondary {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--navy);
   text-decoration: none;
   border-bottom: 1px solid var(--navy);
