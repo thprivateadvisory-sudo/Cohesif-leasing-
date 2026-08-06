@@ -87,7 +87,7 @@ nav {
   background: var(--off-white);
   display: flex;
   align-items: center;
-  padding: 120px 56px 80px;
+  padding: 140px 56px 80px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -95,65 +95,36 @@ nav {
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
 .hero-label {
-  display: flex;
-  align-items: center;
-  gap: 16px;
   font-size: 10px;
-  font-weight: 700;
-  color: var(--gold);
+  font-weight: 600;
+  color: var(--muted);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  margin-bottom: 40px;
-}
-
-.hero-label::before {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--gold);
-  flex-shrink: 0;
+  margin-bottom: 28px;
 }
 
 .hero-title {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1.05;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1.0;
   color: var(--navy);
-  margin-bottom: 28px;
-}
-
-.hero-title em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.hero-sub {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--border);
-  max-width: 480px;
+  margin-bottom: 32px;
+  max-width: 720px;
 }
 
 .hero-desc {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--muted);
-  line-height: 1.9;
-  margin-bottom: 52px;
-  max-width: 440px;
+  line-height: 1.85;
+  margin-bottom: 48px;
+  max-width: 520px;
 }
 
 .hero-actions {
@@ -194,33 +165,36 @@ nav {
 
 .btn-secondary:hover { opacity: 0.6; }
 
-.hero-right {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  background: var(--border);
+.hero-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
 }
 
-.hero-stat {
-  background: var(--white);
-  padding: 36px 40px;
+.hero-stat-item:not(:first-child) {
+  padding-left: 48px;
+  border-left: 1px solid var(--border);
 }
 
-.hero-stat-number {
+.hero-stat-item:not(:last-child) {
+  padding-right: 48px;
+}
+
+.hero-stat-num {
   font-family: 'DM Serif Display', serif;
-  font-size: 44px;
+  font-size: 38px;
   color: var(--navy);
   line-height: 1;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
-.hero-stat-number span { color: var(--gold); font-size: 28px; }
-
-.hero-stat-label {
-  font-size: 12px;
+.hero-stat-lbl {
+  font-size: 11px;
   color: var(--light-muted);
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -613,8 +587,9 @@ footer {
   .nav-logo img { height: 70px; }
   .nav-links { display: none; }
   .hero { padding: 100px 24px 64px; }
-  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
-  .hero-right { display: none; }
+  .hero-stats-strip { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .hero-stat-item:not(:first-child) { padding-left: 0; border-left: none; }
+  .hero-stat-item:not(:last-child) { padding-right: 0; }
   .section { padding: 72px 24px; }
   .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
   .sim-layout { grid-template-columns: 1fr; gap: 40px; }
@@ -644,31 +619,30 @@ footer {
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-label">Financement professionnel B2B</div>
-      <h1 class="hero-title">Votre matériel,<br><em>sans attendre.</em></h1>
-      <p class="hero-sub">Réponse sous 48 heures.</p>
+      <p class="hero-label">Financement professionnel B2B</p>
+      <h1 class="hero-title">Votre matériel,<br>sans attendre.</h1>
       <p class="hero-desc">Minipelles, nacelles, véhicules utilitaires, équipements industriels — nous finançons votre matériel professionnel jusqu'à 150 000 € HT. Réservé aux professionnels.</p>
       <div class="hero-actions">
         <a href="#contact" class="btn-primary">Déposer un dossier</a>
         <a href="#simulateur" class="btn-secondary">Simuler mon financement</a>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="hero-stat">
-        <div class="hero-stat-number">48<span>h</span></div>
-        <div class="hero-stat-label">Délai de réponse</div>
+    <div class="hero-stats-strip">
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">48h</div>
+        <div class="hero-stat-lbl">Délai de réponse</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">150<span>k€</span></div>
-        <div class="hero-stat-label">Financement maximum</div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">150k€</div>
+        <div class="hero-stat-lbl">Financement max.</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">84<span>m</span></div>
-        <div class="hero-stat-label">Durée maximale</div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">84 mois</div>
+        <div class="hero-stat-lbl">Durée maximale</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-number">0<span>€</span></div>
-        <div class="hero-stat-label">Apport minimum</div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-num">0€</div>
+        <div class="hero-stat-lbl">Apport minimum</div>
       </div>
     </div>
   </div>
