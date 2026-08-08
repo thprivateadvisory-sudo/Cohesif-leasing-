@@ -2113,7 +2113,7 @@ document.addEventListener('keydown', function(e) {
 <!-- LAUNCHER -->
 <div id="chat-launcher">
   <div class="chat-pulse" id="ch-pulse"></div>
-  <button id="chat-bubble-btn" onclick="chToggle()" aria-label="Ouvrir l'assistant Cohesif Leasing">
+  <button id="chat-bubble-btn" onclick="chToggle()" aria-label="Contacter le service client Cohesif Leasing">
     <!-- chat icon -->
     <svg class="cb-icon-chat" width="27" height="27" viewBox="0 0 27 27" fill="none" aria-hidden="true">
       <path d="M13.5 3C8.25 3 4 6.91 4 11.75c0 2.04.77 3.92 2.06 5.43L5 23l5.62-2.07A10.5 10.5 0 0013.5 21.5C18.75 21.5 23 17.59 23 12.75S18.75 3 13.5 3z" fill="white"/>
@@ -2131,7 +2131,7 @@ document.addEventListener('keydown', function(e) {
 </div>
 
 <!-- CHAT WINDOW -->
-<div id="chat-window" role="dialog" aria-modal="false" aria-label="Assistant Cohesif Leasing">
+<div id="chat-window" role="dialog" aria-modal="false" aria-label="Service client Cohesif Leasing">
   <div class="ch-header">
     <div class="ch-avatar">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -2140,7 +2140,7 @@ document.addEventListener('keydown', function(e) {
       </svg>
     </div>
     <div class="ch-info">
-      <div class="ch-name">Assistant Cohesif Leasing</div>
+      <div class="ch-name">Cohesif Leasing · Financement</div>
       <div class="ch-status" id="ch-status-bar"><span class="ch-dot" id="ch-agent-dot"></span><span id="ch-status-text">En ligne · Répond instantanément</span></div>
     </div>
   </div>
@@ -2153,7 +2153,7 @@ document.addEventListener('keydown', function(e) {
       </svg>
     </button>
   </div>
-  <div class="ch-powered">Propulsé par l'IA · Cohesif Leasing</div>
+  <div class="ch-powered">Cohesif Leasing · Service client professionnel</div>
 </div>
 
 <script>
@@ -2249,7 +2249,7 @@ document.addEventListener('keydown', function(e) {
     updateAgentStatus();
     var avail = isAgentAvailable();
     chBot(
-      "👋 Bonjour ! Je suis l'assistant de <strong>Cohesif Leasing</strong>, votre spécialiste en financement de matériel professionnel.<br><br>Comment puis-je vous aider ?",
+      "👋 Bonjour ! Bienvenue chez <strong>Cohesif Leasing</strong>.<br><br>Nous finançons votre matériel professionnel jusqu'à <strong>150 000 € HT</strong>, réponse sous 48h.<br><br>Comment pouvons-nous vous aider ?",
       [
         { l: "💰 Financement & tarifs",       v: "financement" },
         { l: "📦 Matériels finançables",       v: "materiel" },
