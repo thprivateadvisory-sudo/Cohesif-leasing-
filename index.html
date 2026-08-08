@@ -813,11 +813,9 @@ footer {
 /* ── PARTENAIRES ── */
 .partenaires { background: var(--white); border-bottom: 1px solid var(--border); }
 
-.partners-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+.partners-header {
+  margin-bottom: 48px;
+  max-width: 680px;
 }
 
 .partners-intro {
@@ -827,54 +825,111 @@ footer {
   margin-top: -16px;
 }
 
-.partner-card {
-  background: var(--off-white);
+.partner-featured {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 52px 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 8px;
+  overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-.partner-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-
-.partner-logo-wrap {
-  width: 100%;
-  max-width: 270px;
-  margin-bottom: 32px;
+  margin-bottom: 20px;
 }
 
-.partner-logo-img {
+.partner-featured-logo {
+  background: var(--off-white);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 36px;
+}
+
+.partner-featured-logo img {
   width: 100%;
+  max-width: 170px;
   height: auto;
   display: block;
   mix-blend-mode: multiply;
 }
 
-.partner-divider {
-  width: 28px;
-  height: 2px;
-  background: var(--gold);
-  margin-bottom: 18px;
+.partner-featured-body {
+  padding: 40px 48px;
 }
 
-.partner-tag {
+.partner-featured-badge {
   font-size: 10px;
   font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.partner-featured-badge::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
 }
 
-.partner-desc {
+.partner-featured-body h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--navy);
+  margin-bottom: 14px;
+  line-height: 1.15;
+}
+
+.partner-featured-body p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
+
+.partner-adv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.partner-adv-card {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 28px 24px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.partner-adv-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-3px); }
+
+.partner-adv-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gold-pale);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.partner-adv-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.partner-adv-card p {
   font-size: 13px;
   color: var(--muted);
   line-height: 1.75;
-  text-align: center;
 }
 
 /* ── HAMBURGER ── */
@@ -1084,8 +1139,10 @@ footer {
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
   .modal-header { padding: 22px 24px 18px; }
   .modal-body { padding: 22px 24px 32px; }
-  .partners-layout { grid-template-columns: 1fr; gap: 40px; }
-  .partner-card { padding: 36px 28px; }
+  .partner-featured { grid-template-columns: 1fr; }
+  .partner-featured-logo { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 28px; }
+  .partner-featured-body { padding: 28px; }
+  .partner-adv-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -1389,21 +1446,54 @@ footer {
 <!-- PARTENAIRES -->
 <section class="section partenaires" id="partenaires">
   <div class="section-inner">
-    <div class="partners-layout">
-      <div>
-        <div class="section-label">Partenaires leaseurs</div>
-        <h2 class="section-title">Qui finance concrètement votre matériel.</h2>
-        <p class="partners-intro">Nous travaillons avec Fidlease Groupe, société spécialisée dans le leasing professionnel. Ce partenariat nous permet d'instruire des dossiers B2B sur mesure — du TPE au groupe régional — avec des délais de réponse maîtrisés.</p>
+
+    <div class="partners-header">
+      <div class="section-label">Partenaires leaseurs</div>
+      <h2 class="section-title">Qui finance concrètement votre matériel.</h2>
+      <p class="partners-intro">Nous travaillons avec Fidlease Groupe, société spécialisée dans le financement locatif professionnel. Ce partenariat sous convention cadre nous permet d'instruire des dossiers B2B sur mesure — du TPE au groupe régional — avec des délais de réponse maîtrisés.</p>
+    </div>
+
+    <div class="partner-featured">
+      <div class="partner-featured-logo">
+        <img src="IMG_3370.png" alt="Fidlease Groupe — Partenaire leaseur officiel">
       </div>
-      <div class="partner-card">
-        <div class="partner-logo-wrap">
-          <img src="IMG_3370.png" alt="Fidlease Groupe — Partenaire leaseur" class="partner-logo-img">
+      <div class="partner-featured-body">
+        <div class="partner-featured-badge">Partenaire leaseur officiel</div>
+        <h3>Fidlease Groupe</h3>
+        <p>Société spécialisée dans le financement locatif professionnel, Fidlease Groupe instruit et structure l'ensemble de nos dossiers sous convention cadre. Leur équipe traite les demandes de TPE, PME et ETI sur tout le territoire, avec une expertise particulière sur les équipements à forte valeur de revente — engins de chantier, véhicules industriels, machines-outils.</p>
+        <div class="tag-list">
+          <span class="tag">Convention cadre</span>
+          <span class="tag">B2B uniquement</span>
+          <span class="tag">Couverture nationale</span>
+          <span class="tag">Instruction prioritaire</span>
         </div>
-        <div class="partner-divider"></div>
-        <p class="partner-tag">Partenaire leaseur officiel</p>
-        <p class="partner-desc">Solutions de financement locatif professionnel — partenaire de référence pour l'instruction et la structuration de vos dossiers.</p>
       </div>
     </div>
+
+    <div class="partner-adv-grid">
+      <div class="partner-adv-card">
+        <div class="partner-adv-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>
+        </div>
+        <h4>Convention cadre active</h4>
+        <p>Un accord-cadre préétabli avec Fidlease accélère l'instruction et garantit des conditions négociées pour chaque dossier — sans renégociation à chaque demande.</p>
+      </div>
+      <div class="partner-adv-card">
+        <div class="partner-adv-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h4>Instruction en priorité</h4>
+        <p>Notre relation directe avec les équipes Fidlease permet une instruction accélérée. Vos dossiers ne passent pas par un formulaire en ligne — ils sont traités par un interlocuteur identifié.</p>
+      </div>
+      <div class="partner-adv-card">
+        <div class="partner-adv-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <h4>Toutes typologies de matériel</h4>
+        <p>Engins, véhicules, machines industrielles, équipements agricoles — chaque catégorie est étudiée. Les dossiers hors standard sont traités au cas par cas avec les équipes Fidlease.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
