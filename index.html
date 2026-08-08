@@ -581,11 +581,201 @@ footer {
 
 .footer-copy { font-size: 12px; color: var(--light-muted); }
 
+/* HAMBURGER */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 4px;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 72px;
+  left: 0; right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  z-index: 99;
+  padding: 0 24px 20px;
+  flex-direction: column;
+  list-style: none;
+  box-shadow: 0 8px 24px rgba(13,27,42,0.08);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu li a {
+  display: block;
+  padding: 15px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-menu li a:hover { color: var(--gold); }
+.mobile-menu .mobile-cta a {
+  border-bottom: none;
+  margin-top: 12px;
+  text-align: center;
+  padding: 14px;
+  background: var(--navy);
+  color: var(--white) !important;
+  border-radius: 2px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+}
+.mobile-menu .mobile-cta a:hover { background: var(--navy-hover); }
+
+/* MODALS */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,27,42,0.65);
+  z-index: 600;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  background: var(--white);
+  max-width: 680px;
+  width: 100%;
+  max-height: 85vh;
+  border-radius: 4px;
+  box-shadow: 0 24px 72px rgba(13,27,42,0.28);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 28px 36px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.modal-header-text { flex: 1; min-width: 0; }
+
+.modal-badge {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.modal-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  color: var(--navy);
+  line-height: 1.15;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.modal-close:hover { color: var(--navy); }
+
+.modal-body {
+  padding: 28px 36px 40px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.modal-body::-webkit-scrollbar { width: 4px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.modal-section { margin-bottom: 28px; }
+.modal-section:last-child { margin-bottom: 0; }
+
+.modal-body h3 {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-body p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 6px;
+}
+
+.modal-body p strong { color: var(--navy); font-weight: 600; }
+
+.modal-body ul {
+  margin: 4px 0 8px 18px;
+}
+.modal-body ul li {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.85;
+}
+
+.modal-info-block {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  padding: 16px 20px;
+  margin-top: 12px;
+}
+.modal-info-block p {
+  font-size: 14px;
+  color: var(--navy);
+  line-height: 1.7;
+  margin: 0;
+  font-weight: 500;
+}
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   nav { padding: 0 24px; height: 72px; }
   .nav-logo img { height: 70px; }
   .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
   .hero { padding: 100px 24px 64px; }
   .hero-stats-strip { grid-template-columns: 1fr 1fr; gap: 28px; }
   .hero-stat-item:not(:first-child) { padding-left: 0; border-left: none; }
@@ -597,6 +787,15 @@ footer {
   .elig-layout { grid-template-columns: 1fr; gap: 40px; }
   .form-row { grid-template-columns: 1fr; }
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  .modal-header { padding: 22px 24px 18px; }
+  .modal-body { padding: 22px 24px 32px; }
+}
+
+@media (max-width: 480px) {
+  .mat-grid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .hero-stats-strip { grid-template-columns: 1fr 1fr; }
+  .modal-box { max-height: 90vh; }
 }
 </style>
 </head>
@@ -613,7 +812,18 @@ footer {
     <li><a href="#simulateur">Simulateur</a></li>
     <li><a href="#contact" class="nav-cta">Déposer un dossier</a></li>
   </ul>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<ul class="mobile-menu" id="mobile-menu">
+  <li><a href="#fonctionnement" onclick="closeMobileMenu()">Fonctionnement</a></li>
+  <li><a href="#materiel" onclick="closeMobileMenu()">Matériels</a></li>
+  <li><a href="#simulateur" onclick="closeMobileMenu()">Simulateur</a></li>
+  <li class="mobile-cta"><a href="#contact" onclick="closeMobileMenu()">Déposer un dossier</a></li>
+</ul>
 
 <!-- HERO -->
 <section class="hero">
@@ -909,10 +1119,10 @@ footer {
     <img src="e2a5f6bc-a5b7-4ab2-a1aa-3129e8f78359.png" alt="Cohesif Leasing">
   </div>
   <ul class="footer-links">
-    <li><a href="#">Mentions légales</a></li>
-    <li><a href="#">CGU</a></li>
-    <li><a href="#">Confidentialité</a></li>
-    <li><a href="https://groupecohesif.fr">Groupe Cohesif</a></li>
+    <li><a href="#" onclick="openModal('modal-mentions'); return false;">Mentions légales</a></li>
+    <li><a href="#" onclick="openModal('modal-cgu'); return false;">CGU</a></li>
+    <li><a href="#" onclick="openModal('modal-confidentialite'); return false;">Confidentialité</a></li>
+    <li><a href="https://groupecohesif.fr" target="_blank" rel="noopener noreferrer">Groupe Cohesif</a></li>
   </ul>
   <div class="footer-copy">© 2026 Cohesif Leasing</div>
 </footer>
@@ -941,12 +1151,59 @@ function submitForm() {
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
+    const id = a.getAttribute('href');
+    if (id === '#') return;
+    const t = document.querySelector(id);
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
 
 updateCalc();
+
+// ── Hamburger menu ──────────────────────────────
+window.toggleMobileMenu = function() {
+  const btn = document.getElementById('nav-hamburger');
+  const menu = document.getElementById('mobile-menu');
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+};
+
+window.closeMobileMenu = function() {
+  const btn = document.getElementById('nav-hamburger');
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.remove('open');
+  btn.classList.remove('open');
+  btn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+};
+
+// ── Modals ──────────────────────────────────────
+window.openModal = function(id) {
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  overlay.querySelector('.modal-box').focus && overlay.querySelector('.modal-box').focus();
+};
+
+window.closeModal = function(id) {
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+};
+
+window.handleOverlayClick = function(e, id) {
+  if (e.target.id === id) closeModal(id);
+};
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    ['modal-mentions', 'modal-cgu', 'modal-confidentialite'].forEach(closeModal);
+  }
+});
 </script>
 
 <!-- ═══════════════════════════════════════════════
@@ -1301,6 +1558,191 @@ updateCalc();
   #chat-launcher { right: 14px; bottom: 14px; }
 }
 </style>
+
+<!-- ═══════════════════════════════════════════════
+     MODALS LÉGAUX
+════════════════════════════════════════════════ -->
+
+<!-- MODAL : MENTIONS LÉGALES -->
+<div class="modal-overlay" id="modal-mentions" role="dialog" aria-modal="true" aria-label="Mentions légales" onclick="handleOverlayClick(event, 'modal-mentions')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <span class="modal-badge">Informations légales</span>
+        <h2>Mentions légales</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-mentions')" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h3>Éditeur du site</h3>
+        <div class="modal-info-block">
+          <p><strong>Groupe Cohesif</strong><br>
+          SIRET : 889 287 462 00036<br>
+          200 rue de la Croix Nivert, 75015 Paris</p>
+        </div>
+        <p style="margin-top:14px;">Le site Cohesif Leasing est édité par le <strong>Groupe Cohesif</strong>, groupe multi-activités dont le siège social est situé à Paris. Cohesif Leasing constitue le pôle financement professionnel du Groupe.</p>
+      </div>
+      <div class="modal-section">
+        <h3>Responsable de publication</h3>
+        <p>Le responsable de la publication est le Groupe Cohesif, représenté par sa direction générale.</p>
+      </div>
+      <div class="modal-section">
+        <h3>Hébergement</h3>
+        <p>Le site est hébergé sur des serveurs sécurisés en Europe, conformément à la réglementation en vigueur sur la protection des données personnelles.</p>
+      </div>
+      <div class="modal-section">
+        <h3>Propriété intellectuelle</h3>
+        <p>L'ensemble des contenus présents sur ce site (textes, visuels, logos, structure, charte graphique) est la propriété exclusive du Groupe Cohesif et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle.</p>
+        <p>Toute reproduction, représentation, modification ou exploitation, totale ou partielle, sans autorisation écrite préalable est strictement interdite.</p>
+      </div>
+      <div class="modal-section">
+        <h3>Limitation de responsabilité</h3>
+        <p>Les informations présentées sur ce site ont un caractère indicatif et ne constituent en aucun cas une offre contractuelle. Les simulations de financement sont fournies à titre d'estimation et ne préjugent pas de la décision définitive.</p>
+        <p>Cohesif Leasing ne saurait être tenu responsable des éventuelles erreurs ou omissions dans les contenus publiés, ni des dommages directs ou indirects résultant de l'utilisation de ce site.</p>
+      </div>
+      <div class="modal-section">
+        <h3>Droit applicable</h3>
+        <p>Le présent site et ses contenus sont soumis au droit français. Tout litige relatif à l'utilisation du site relève de la compétence exclusive des tribunaux compétents du ressort de Paris.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : CGU -->
+<div class="modal-overlay" id="modal-cgu" role="dialog" aria-modal="true" aria-label="Conditions Générales d'Utilisation" onclick="handleOverlayClick(event, 'modal-cgu')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <span class="modal-badge">Conditions contractuelles</span>
+        <h2>Conditions Générales d'Utilisation</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-cgu')" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h3>1. Objet</h3>
+        <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du site <strong>Cohesif Leasing</strong>, édité par <strong>Groupe Cohesif</strong> (SIRET 889 287 462 00036, 200 rue de la Croix Nivert, 75015 Paris).</p>
+        <p>L'accès au site vaut acceptation pleine et entière des présentes CGU.</p>
+      </div>
+      <div class="modal-section">
+        <h3>2. Accès au service</h3>
+        <p>Cohesif Leasing intervient <strong>exclusivement en B2B</strong>. L'accès aux services de financement est réservé aux professionnels : entreprises (TPE, PME, ETI), artisans, auto-entrepreneurs et professions libérales. Aucun service n'est proposé aux particuliers.</p>
+      </div>
+      <div class="modal-section">
+        <h3>3. Simulateur de financement</h3>
+        <p>Le simulateur de financement mis à disposition sur le site est un outil <strong>purement indicatif</strong>. Les mensualités affichées sont calculées sur la base de paramètres génériques et ne tiennent pas compte de la situation financière individuelle de l'entreprise.</p>
+        <p>Les résultats du simulateur ne constituent en aucun cas une offre de crédit au sens légal, ni un engagement de financement de la part de Cohesif Leasing ou de ses partenaires leaseurs.</p>
+      </div>
+      <div class="modal-section">
+        <h3>4. Dépôt de dossier</h3>
+        <p>L'envoi du formulaire de contact sur le site initie une demande d'étude préliminaire. Cet envoi <strong>ne crée aucun engagement contractuel</strong> entre les parties. Une offre ferme, avec mensualités, durée et conditions définitives, est communiquée après étude complète du dossier par l'équipe Cohesif Leasing et validation par le partenaire leaseur.</p>
+      </div>
+      <div class="modal-section">
+        <h3>5. Comportement des utilisateurs</h3>
+        <p>L'utilisateur s'engage à utiliser le site de manière loyale et conforme aux lois en vigueur. Toute tentative de fraude, d'usurpation d'identité ou de communication de fausses informations dans un formulaire de dossier est strictement prohibée et peut faire l'objet de poursuites judiciaires.</p>
+      </div>
+      <div class="modal-section">
+        <h3>6. Données personnelles</h3>
+        <p>Les données collectées via les formulaires du site sont traitées conformément à notre <strong>Politique de confidentialité</strong> et au Règlement Général sur la Protection des Données (RGPD – Règlement UE 2016/679).</p>
+      </div>
+      <div class="modal-section">
+        <h3>7. Modification des CGU</h3>
+        <p>Cohesif Leasing se réserve le droit de modifier les présentes CGU à tout moment. Les modifications entrent en vigueur dès leur publication sur le site. L'utilisation du site après modification vaut acceptation des nouvelles CGU.</p>
+      </div>
+      <div class="modal-section">
+        <h3>8. Droit applicable et juridiction</h3>
+        <p>Les présentes CGU sont soumises au droit français. Tout litige sera soumis, à défaut d'accord amiable, à la compétence exclusive des tribunaux du ressort de Paris.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL : CONFIDENTIALITÉ -->
+<div class="modal-overlay" id="modal-confidentialite" role="dialog" aria-modal="true" aria-label="Politique de confidentialité" onclick="handleOverlayClick(event, 'modal-confidentialite')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-header-text">
+        <span class="modal-badge">RGPD & Protection des données</span>
+        <h2>Politique de confidentialité</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-confidentialite')" aria-label="Fermer">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <h3>1. Responsable du traitement</h3>
+        <div class="modal-info-block">
+          <p><strong>Groupe Cohesif</strong><br>
+          SIRET : 889 287 462 00036<br>
+          200 rue de la Croix Nivert, 75015 Paris</p>
+        </div>
+      </div>
+      <div class="modal-section">
+        <h3>2. Données collectées</h3>
+        <p>Dans le cadre du traitement de votre demande de financement, nous collectons les données suivantes :</p>
+        <ul>
+          <li>Nom et prénom du représentant</li>
+          <li>Raison sociale de l'entreprise</li>
+          <li>Numéro de téléphone professionnel</li>
+          <li>Adresse e-mail professionnelle</li>
+          <li>Type de matériel et montant de financement souhaité</li>
+          <li>Durée de financement souhaitée</li>
+          <li>Informations complémentaires librement renseignées</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h3>3. Finalités du traitement</h3>
+        <p>Ces données sont utilisées exclusivement pour :</p>
+        <ul>
+          <li>Étudier et instruire votre demande de financement professionnel</li>
+          <li>Vous contacter dans le cadre du suivi de votre dossier</li>
+          <li>Vous adresser une offre de financement adaptée</li>
+          <li>Transmettre votre dossier à nos partenaires leaseurs dans le cadre de l'instruction</li>
+        </ul>
+        <p>Vos données ne sont <strong>jamais vendues ni cédées</strong> à des tiers à des fins commerciales.</p>
+      </div>
+      <div class="modal-section">
+        <h3>4. Base légale</h3>
+        <p>Le traitement de vos données repose sur votre <strong>consentement explicite</strong> (envoi du formulaire de contact) et sur l'<strong>exécution de mesures précontractuelles</strong> prises à votre demande (instruction du dossier de financement).</p>
+      </div>
+      <div class="modal-section">
+        <h3>5. Durée de conservation</h3>
+        <p>Vos données sont conservées pendant la durée nécessaire à l'instruction de votre dossier et, au maximum, <strong>3 ans</strong> à compter du dernier contact commercial, conformément aux délais légaux applicables.</p>
+      </div>
+      <div class="modal-section">
+        <h3>6. Destinataires des données</h3>
+        <p>Vos données peuvent être transmises à nos <strong>partenaires leaseurs</strong> (sociétés de leasing partenaires de Groupe Cohesif) dans le seul but d'instruire votre demande de financement. Ces partenaires sont soumis aux mêmes obligations de confidentialité.</p>
+      </div>
+      <div class="modal-section">
+        <h3>7. Vos droits (RGPD)</h3>
+        <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :</p>
+        <ul>
+          <li><strong>Droit d'accès</strong> à vos données personnelles</li>
+          <li><strong>Droit de rectification</strong> en cas d'inexactitude</li>
+          <li><strong>Droit à l'effacement</strong> (« droit à l'oubli »)</li>
+          <li><strong>Droit à la portabilité</strong> de vos données</li>
+          <li><strong>Droit d'opposition</strong> au traitement</li>
+        </ul>
+        <p>Pour exercer ces droits ou pour toute question relative à vos données personnelles, vous pouvez contacter le Groupe Cohesif à l'adresse de son siège social.</p>
+        <p>En cas de réclamation non résolue, vous avez le droit d'introduire une réclamation auprès de la <strong>CNIL</strong> (www.cnil.fr).</p>
+      </div>
+      <div class="modal-section">
+        <h3>8. Cookies</h3>
+        <p>Ce site utilise uniquement des <strong>cookies techniques strictement nécessaires</strong> au bon fonctionnement du site (navigation, session). Aucun cookie de traçage publicitaire ou analytique tiers n'est déposé sans votre consentement préalable.</p>
+      </div>
+      <div class="modal-section">
+        <h3>9. Sécurité</h3>
+        <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données contre tout accès non autorisé, perte ou divulgation.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- LAUNCHER -->
 <div id="chat-launcher">
