@@ -773,6 +773,19 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(13,27,42,0.09); }
   line-height: 1.6;
 }
 
+.form-req { color: var(--gold); font-weight: 700; }
+
+.form-error {
+  display: none;
+  font-size: 13px;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  padding: 10px 14px;
+  line-height: 1.5;
+}
+
 .confirm {
   display: none;
   padding: 48px 40px;
@@ -1508,27 +1521,27 @@ footer {
       <div class="form" id="form">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Prénom & Nom</label>
-            <input type="text" placeholder="Jean Dupont">
+            <label class="form-label">Prénom & Nom <span class="form-req">*</span></label>
+            <input type="text" id="f-nom" name="nom" placeholder="Jean Dupont" autocomplete="name">
           </div>
           <div class="form-group">
-            <label class="form-label">Société</label>
-            <input type="text" placeholder="Dupont BTP SARL">
+            <label class="form-label">Société <span class="form-req">*</span></label>
+            <input type="text" id="f-societe" name="societe" placeholder="Dupont BTP SARL" autocomplete="organization">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Téléphone</label>
-            <input type="tel" placeholder="+33 6 00 00 00 00">
+            <label class="form-label">Téléphone <span class="form-req">*</span></label>
+            <input type="tel" id="f-tel" name="telephone" placeholder="+33 6 00 00 00 00" autocomplete="tel">
           </div>
           <div class="form-group">
-            <label class="form-label">Email professionnel</label>
-            <input type="email" placeholder="jean@dupont-btp.fr">
+            <label class="form-label">Email professionnel <span class="form-req">*</span></label>
+            <input type="email" id="f-email" name="email" placeholder="jean@dupont-btp.fr" autocomplete="email">
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Type de matériel</label>
-          <select>
+          <label class="form-label">Type de matériel <span class="form-req">*</span></label>
+          <select id="f-type" name="type_materiel">
             <option value="">Sélectionner...</option>
             <option>Engins de chantier</option>
             <option>Véhicules utilitaires</option>
@@ -1541,11 +1554,11 @@ footer {
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Montant estimé (€ HT)</label>
-            <input type="number" placeholder="40 000">
+            <input type="number" id="f-montant" name="montant" placeholder="40 000">
           </div>
           <div class="form-group">
             <label class="form-label">Durée souhaitée</label>
-            <select>
+            <select id="f-duree" name="duree">
               <option>24 mois</option>
               <option>36 mois</option>
               <option>48 mois</option>
@@ -1557,14 +1570,17 @@ footer {
         </div>
         <div class="form-group">
           <label class="form-label">Informations complémentaires</label>
-          <textarea rows="3" placeholder="Fournisseur identifié, projet, contexte..."></textarea>
+          <textarea id="f-message" name="message" rows="3" placeholder="Fournisseur identifié, projet, contexte..."></textarea>
         </div>
-        <button class="form-submit" onclick="submitForm()">Envoyer ma demande</button>
-        <p class="form-note">Réponse garantie sous 24h — Données confidentielles — Aucun engagement</p>
+        <div class="form-error" id="form-error"></div>
+        <button class="form-submit" id="form-btn" onclick="submitForm()">Envoyer ma demande</button>
+        <p class="form-note">Réponse garantie sous 24h · Données confidentielles · Aucun engagement</p>
       </div>
       <div class="confirm" id="confirm">
-        Votre demande a bien été reçue.<br>
-        Notre équipe vous contacte sous 24 heures.
+        <div style="font-size:40px;margin-bottom:16px;">✅</div>
+        <strong style="font-size:19px;color:var(--navy);display:block;margin-bottom:12px;font-family:'DM Serif Display',serif;">Dossier bien reçu.</strong>
+        Un conseiller Cohesif Leasing vous contacte sous <strong>24h ouvrées</strong> pour confirmer la faisabilité et lancer l'instruction avec Fidlease.<br><br>
+        <span style="font-size:12px;color:var(--light-muted);">Lun–Ven 8h–19h · Sam 9h–17h · Vérifiez vos spams si besoin</span>
       </div>
     </div>
   </div>
@@ -1601,9 +1617,57 @@ function updateCalc() {
 document.getElementById('s-montant').addEventListener('input', updateCalc);
 document.getElementById('s-duree').addEventListener('change', updateCalc);
 
-function submitForm() {
-  document.getElementById('form').style.display = 'none';
-  document.getElementById('confirm').style.display = 'block';
+async function submitForm() {
+  var nom     = document.getElementById('f-nom').value.trim();
+  var societe = document.getElementById('f-societe').value.trim();
+  var tel     = document.getElementById('f-tel').value.trim();
+  var email   = document.getElementById('f-email').value.trim();
+  var type    = document.getElementById('f-type').value;
+  var err     = document.getElementById('form-error');
+
+  err.style.display = 'none';
+
+  if (!nom || !societe || !tel || !email || !type) {
+    err.textContent = 'Merci de remplir tous les champs obligatoires (*).';
+    err.style.display = 'block';
+    err.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
+  var btn = document.getElementById('form-btn');
+  btn.textContent = 'Envoi en cours…';
+  btn.disabled = true;
+
+  var fd = new FormData();
+  fd.append('_subject', '📋 Nouveau dossier · Cohesif Leasing · ' + nom + ' — ' + societe);
+  fd.append('Nom',              nom);
+  fd.append('Société',          societe);
+  fd.append('Téléphone',        tel);
+  fd.append('Email',            email);
+  fd.append('Type de matériel', type);
+  fd.append('Montant estimé',   document.getElementById('f-montant').value || 'Non renseigné');
+  fd.append('Durée souhaitée',  document.getElementById('f-duree').value);
+  fd.append('Informations',     document.getElementById('f-message').value || '—');
+  fd.append('Source',           'Formulaire site web — Cohesif Leasing');
+
+  try {
+    var res = await fetch('https://formspree.io/f/mzdnndna', {
+      method: 'POST',
+      body: fd,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      document.getElementById('form').style.display = 'none';
+      document.getElementById('confirm').style.display = 'block';
+    } else {
+      throw new Error('server');
+    }
+  } catch(e) {
+    btn.textContent = 'Envoyer ma demande';
+    btn.disabled = false;
+    err.textContent = 'Une erreur s\'est produite. Veuillez réessayer ou nous contacter directement par téléphone.';
+    err.style.display = 'block';
+  }
 }
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
