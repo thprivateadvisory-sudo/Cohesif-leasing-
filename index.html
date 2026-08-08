@@ -13,44 +13,59 @@
 
 :root {
   --navy: #0d1b2a;
+  --navy-mid: #112033;
   --navy-hover: #1a2d42;
   --gold: #b8963e;
-  --gold-border: rgba(184, 150, 62, 0.35);
+  --gold-light: #cda94e;
+  --gold-border: rgba(184, 150, 62, 0.3);
+  --gold-pale: rgba(184, 150, 62, 0.08);
   --white: #ffffff;
-  --off-white: #f8f7f4;
-  --border: #e4e1db;
+  --off-white: #f7f5f1;
+  --surface: #f2efea;
+  --border: #e4e0d9;
+  --border-soft: rgba(228, 224, 217, 0.7);
   --muted: #6b6560;
   --light-muted: #9a9690;
+  --shadow-sm: 0 2px 8px rgba(13,27,42,0.06);
+  --shadow-md: 0 8px 28px rgba(13,27,42,0.1);
+  --shadow-lg: 0 20px 60px rgba(13,27,42,0.14);
 }
 
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); overflow-x: hidden; }
 
-/* NAV */
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── NAV ── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
   height: 80px;
-  background: var(--white);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 56px;
+  transition: box-shadow 0.3s;
 }
+nav.scrolled { box-shadow: 0 4px 24px rgba(13,27,42,0.09); }
 
-.nav-logo {
-  display: block;
-  line-height: 0;
-  flex-shrink: 0;
-}
-
-.nav-logo img {
-  height: 85px;
-  width: auto;
-  display: block;
-}
+.nav-logo { display: block; line-height: 0; flex-shrink: 0; }
+.nav-logo img { height: 85px; width: auto; display: block; }
 
 .nav-links {
   display: flex;
@@ -66,29 +81,82 @@ nav {
   text-decoration: none;
   letter-spacing: 0.04em;
   transition: color 0.2s;
+  position: relative;
 }
-
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
 .nav-links a:hover { color: var(--navy); }
+.nav-links a:hover::after { transform: scaleX(1); }
 
 .nav-cta {
-  background: var(--navy) !important;
+  background: var(--gold) !important;
   color: var(--white) !important;
   padding: 11px 24px;
-  border-radius: 2px;
+  border-radius: 3px;
   font-weight: 600 !important;
   letter-spacing: 0.03em !important;
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover {
+  background: var(--gold-light) !important;
+  transform: translateY(-1px);
 }
 
-.nav-cta:hover { background: var(--navy-hover) !important; }
-
-/* HERO */
+/* ── HERO ── */
 .hero {
   min-height: 100vh;
-  background: var(--off-white);
+  background: var(--navy);
+  background-image:
+    radial-gradient(ellipse at 75% 40%, rgba(184,150,62,0.07) 0%, transparent 55%),
+    radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: auto, 30px 30px;
   display: flex;
   align-items: center;
   padding: 140px 56px 80px;
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 55%, rgba(184,150,62,0.05) 100%);
+  pointer-events: none;
+}
+
+.hero-deco {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,150,62,0.12);
+  pointer-events: none;
+}
+.hero-deco::before {
+  content: '';
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,150,62,0.08);
+}
+.hero-deco::after {
+  content: '';
+  position: absolute;
+  inset: 100px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,150,62,0.05);
 }
 
 .hero-inner {
@@ -97,34 +165,52 @@ nav {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: 56px;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   font-size: 10px;
   font-weight: 600;
-  color: var(--muted);
+  color: var(--gold);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   margin-bottom: 28px;
 }
+.hero-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
 
 .hero-title {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(48px, 6vw, 80px);
-  line-height: 1.0;
-  color: var(--navy);
+  font-size: clamp(52px, 7vw, 88px);
+  line-height: 0.95;
+  color: var(--white);
   margin-bottom: 32px;
-  max-width: 720px;
+  max-width: 700px;
+  letter-spacing: -0.01em;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-light);
 }
 
 .hero-desc {
   font-size: 16px;
   font-weight: 300;
-  color: var(--muted);
+  color: rgba(255,255,255,0.55);
   line-height: 1.85;
   margin-bottom: 48px;
-  max-width: 520px;
+  max-width: 500px;
 }
 
 .hero-actions {
@@ -136,115 +222,161 @@ nav {
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: var(--navy);
+  gap: 10px;
+  background: var(--gold);
   color: var(--white);
-  padding: 14px 32px;
+  padding: 15px 34px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: 2px;
-  transition: background 0.2s;
+  border-radius: 3px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(184,150,62,0.35);
 }
-
-.btn-primary:hover { background: var(--navy-hover); }
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(184,150,62,0.4);
+}
+.btn-primary svg { transition: transform 0.2s; }
+.btn-primary:hover svg { transform: translateX(3px); }
 
 .btn-secondary {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--navy);
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
-  border-bottom: 1px solid var(--navy);
   padding-bottom: 2px;
-  transition: opacity 0.2s;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  transition: color 0.2s, border-color 0.2s;
+}
+.btn-secondary:hover {
+  color: var(--white);
+  border-bottom-color: rgba(255,255,255,0.6);
 }
 
-.btn-secondary:hover { opacity: 0.6; }
-
+/* Hero stats */
 .hero-stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  justify-content: start;
-  border-top: 1px solid var(--border);
-  padding-top: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
 }
 
-.hero-stat-item:not(:first-child) {
-  padding-left: 48px;
-  border-left: 1px solid var(--border);
+.hero-stat-item {
+  background: rgba(255,255,255,0.03);
+  padding: 24px 28px;
+  text-align: center;
+  transition: background 0.2s;
 }
-
-.hero-stat-item:not(:last-child) {
-  padding-right: 48px;
-}
+.hero-stat-item:hover { background: rgba(255,255,255,0.06); }
 
 .hero-stat-num {
   font-family: 'DM Serif Display', serif;
   font-size: 38px;
-  color: var(--navy);
+  color: var(--white);
   line-height: 1;
   margin-bottom: 8px;
 }
 
 .hero-stat-lbl {
-  font-size: 11px;
-  color: var(--light-muted);
+  font-size: 10px;
+  color: rgba(255,255,255,0.38);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-/* SECTION BASE */
-.section {
-  padding: 100px 56px;
-}
+/* ── SECTION BASE ── */
+.section { padding: 108px 56px; }
 
-.section-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-}
+.section-inner { max-width: 1100px; margin: 0 auto; }
 
 .section-label {
-  font-size: 11px;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+}
+.section-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
 }
 
 .section-title {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(30px, 3.5vw, 46px);
+  font-size: clamp(32px, 4vw, 50px);
   color: var(--navy);
-  line-height: 1.1;
+  line-height: 1.08;
   margin-bottom: 56px;
   max-width: 560px;
 }
 
-/* HOW */
-.how { background: var(--white); border-bottom: 1px solid var(--border); }
+/* ── HOW / STEPS ── */
+.how { background: var(--off-white); border-bottom: 1px solid var(--border); }
 
 .steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 48px;
+  gap: 0;
+  position: relative;
 }
 
-.step-num {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.12em;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid var(--navy);
-  display: inline-block;
+.steps-connector {
+  position: absolute;
+  top: 22px;
+  left: calc(12.5% + 1px);
+  right: calc(12.5% + 1px);
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(184,150,62,0.2) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
+
+.step {
+  padding: 0 28px;
+  padding-top: 64px;
+  position: relative;
+}
+.step:first-child { padding-left: 0; }
+.step:last-child { padding-right: 0; }
+
+.step-num {
+  position: absolute;
+  top: 0; left: 28px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Serif Display', serif;
+  border: 2px solid var(--gold);
+  z-index: 1;
+  transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0;
+}
+.step:first-child .step-num { left: 0; }
+.step:last-child .step-num { left: 28px; }
+.step:hover .step-num { background: var(--gold); transform: scale(1.05); }
 
 .step h3 {
   font-size: 15px;
@@ -257,11 +389,11 @@ nav {
 .step p {
   font-size: 13px;
   color: var(--muted);
-  line-height: 1.8;
+  line-height: 1.85;
 }
 
-/* SIMULATOR */
-.simulator { background: var(--off-white); border-bottom: 1px solid var(--border); }
+/* ── SIMULATOR ── */
+.simulator { background: var(--white); border-bottom: 1px solid var(--border); }
 
 .sim-layout {
   display: grid;
@@ -273,7 +405,7 @@ nav {
 .sim-desc {
   font-size: 15px;
   color: var(--muted);
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 40px;
 }
 
@@ -292,9 +424,11 @@ nav {
 .sim-row-value.gold { color: var(--gold); }
 
 .sim-box {
-  background: var(--white);
+  background: var(--off-white);
   border: 1px solid var(--border);
+  border-radius: 6px;
   padding: 40px;
+  box-shadow: var(--shadow-sm);
 }
 
 .sim-box h3 {
@@ -318,66 +452,96 @@ nav {
 
 .field input, .field select {
   width: 100%;
-  background: var(--off-white);
-  border: 1px solid var(--border);
-  border-radius: 2px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
   padding: 13px 14px;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
   color: var(--navy);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   -webkit-appearance: none;
 }
-
-.field input:focus, .field select:focus { border-color: var(--navy); }
+.field input:focus, .field select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-pale);
+}
 
 .sim-result {
-  border-top: 2px solid var(--navy);
-  padding-top: 24px;
+  background: var(--navy);
+  border-radius: 4px;
+  padding: 24px;
   margin-top: 8px;
   margin-bottom: 24px;
 }
 
 .sim-result-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .sim-result-value {
   font-family: 'DM Serif Display', serif;
-  font-size: 42px;
-  color: var(--navy);
+  font-size: 44px;
+  color: var(--white);
   line-height: 1;
 }
 
 .sim-result-sub {
   font-size: 12px;
-  color: var(--muted);
-  margin-top: 6px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
 }
 
-/* MATERIEL */
-.materiel { background: var(--white); border-bottom: 1px solid var(--border); }
+/* ── MATERIEL ── */
+.materiel { background: var(--off-white); border-bottom: 1px solid var(--border); }
 
 .mat-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
+  gap: 20px;
 }
 
 .mat-card {
   background: var(--white);
-  padding: 40px;
-  transition: background 0.2s;
+  padding: 36px 32px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s, border-color 0.25s;
+  position: relative;
+  overflow: hidden;
 }
 
-.mat-card:hover { background: var(--off-white); }
+.mat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.mat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold-border); }
+.mat-card:hover::before { transform: scaleX(1); }
+
+.mat-icon {
+  width: 48px; height: 48px;
+  background: var(--gold-pale);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--gold);
+  transition: background 0.2s;
+}
+.mat-card:hover .mat-icon { background: rgba(184,150,62,0.14); }
 
 .mat-card h3 {
   font-size: 15px;
@@ -389,19 +553,19 @@ nav {
 .mat-card p {
   font-size: 13px;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
   margin-bottom: 16px;
 }
 
 .mat-range {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
-/* ELIGIBILITE */
-.eligibilite { background: var(--off-white); border-bottom: 1px solid var(--border); }
+/* ── ELIGIBILITE ── */
+.eligibilite { background: var(--white); border-bottom: 1px solid var(--border); }
 
 .elig-layout {
   display: grid;
@@ -412,16 +576,30 @@ nav {
 .elig-list { list-style: none; }
 
 .elig-item {
-  padding: 24px 0;
+  padding: 22px 0;
   border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.elig-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--gold-pale);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .elig-item strong {
   display: block;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--navy);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .elig-item span {
@@ -432,31 +610,57 @@ nav {
 
 .elig-box {
   background: var(--navy);
-  padding: 48px;
+  background-image:
+    radial-gradient(ellipse at 80% 20%, rgba(184,150,62,0.12) 0%, transparent 60%),
+    radial-gradient(circle, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: auto, 24px 24px;
+  padding: 52px 48px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.elig-box::before {
+  content: '';
+  position: absolute;
+  bottom: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,150,62,0.1);
 }
 
 .elig-box-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--gold);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.elig-box-label::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
 }
 
 .elig-box h3 {
   font-family: 'DM Serif Display', serif;
-  font-size: 28px;
+  font-size: 30px;
   color: var(--white);
-  line-height: 1.3;
+  line-height: 1.2;
   margin-bottom: 20px;
 }
 
 .elig-box p {
   font-size: 14px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.8;
-  margin-bottom: 32px;
+  color: rgba(255,255,255,0.48);
+  line-height: 1.85;
+  margin-bottom: 36px;
 }
 
 .tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -464,17 +668,21 @@ nav {
 .tag {
   font-size: 11px;
   font-weight: 600;
-  color: var(--gold);
-  border: 1px solid var(--gold-border);
-  padding: 6px 14px;
+  color: var(--gold-light);
+  border: 1px solid rgba(184,150,62,0.25);
+  background: rgba(184,150,62,0.07);
+  padding: 7px 14px;
+  border-radius: 3px;
   letter-spacing: 0.04em;
+  transition: background 0.2s;
 }
+.tag:hover { background: rgba(184,150,62,0.13); }
 
-/* CONTACT */
-.contact { background: var(--white); }
+/* ── CONTACT ── */
+.contact { background: var(--off-white); }
 
 .contact-inner {
-  max-width: 640px;
+  max-width: 660px;
   margin: 0 auto;
   text-align: center;
 }
@@ -494,25 +702,26 @@ nav {
 }
 
 .form { display: flex; flex-direction: column; gap: 16px; text-align: left; }
-
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
 .form input, .form select, .form textarea {
   width: 100%;
-  background: var(--off-white);
-  border: 1px solid var(--border);
-  border-radius: 2px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
   padding: 14px 16px;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
   color: var(--navy);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   -webkit-appearance: none;
   resize: none;
 }
-
-.form input:focus, .form select:focus, .form textarea:focus { border-color: var(--navy); }
+.form input:focus, .form select:focus, .form textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-pale);
+}
 
 .form-label {
   display: block;
@@ -528,21 +737,26 @@ nav {
 
 .form-submit {
   width: 100%;
-  background: var(--navy);
+  background: var(--gold);
   color: var(--white);
   border: none;
   padding: 17px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
   font-family: 'Inter', sans-serif;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.2s;
+  border-radius: 4px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
   margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(184,150,62,0.3);
 }
-
-.form-submit:hover { background: var(--navy-hover); }
+.form-submit:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(184,150,62,0.4);
+}
 
 .form-note {
   font-size: 12px;
@@ -553,18 +767,19 @@ nav {
 
 .confirm {
   display: none;
-  padding: 40px;
+  padding: 48px 40px;
   border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white);
   text-align: center;
   color: var(--navy);
   font-size: 15px;
   line-height: 1.8;
 }
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer {
-  background: var(--off-white);
-  border-top: 1px solid var(--border);
+  background: var(--navy);
   padding: 40px 56px;
   display: flex;
   align-items: center;
@@ -573,15 +788,20 @@ footer {
   gap: 24px;
 }
 
-.footer-logo img { height: 52px; width: auto; mix-blend-mode: multiply; }
+.footer-logo img { height: 52px; width: auto; filter: brightness(0) invert(1); opacity: 0.85; }
 
 .footer-links { display: flex; gap: 28px; list-style: none; }
-.footer-links a { font-size: 12px; color: var(--light-muted); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--navy); }
+.footer-links a {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
 
-.footer-copy { font-size: 12px; color: var(--light-muted); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
 
-/* PARTENAIRES */
+/* ── PARTENAIRES ── */
 .partenaires { background: var(--white); border-bottom: 1px solid var(--border); }
 
 .partners-layout {
@@ -601,11 +821,15 @@ footer {
 .partner-card {
   background: var(--off-white);
   border: 1px solid var(--border);
+  border-radius: 6px;
   padding: 52px 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
+.partner-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
 
 .partner-logo-wrap {
   width: 100%;
@@ -629,7 +853,7 @@ footer {
 
 .partner-tag {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gold);
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -644,7 +868,7 @@ footer {
   text-align: center;
 }
 
-/* HAMBURGER */
+/* ── HAMBURGER ── */
 .nav-hamburger {
   display: none;
   flex-direction: column;
@@ -667,7 +891,7 @@ footer {
 .nav-hamburger.open span:nth-child(2) { opacity: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* MOBILE MENU */
+/* ── MOBILE MENU ── */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -679,7 +903,7 @@ footer {
   padding: 0 24px 20px;
   flex-direction: column;
   list-style: none;
-  box-shadow: 0 8px 24px rgba(13,27,42,0.08);
+  box-shadow: 0 12px 32px rgba(13,27,42,0.1);
 }
 .mobile-menu.open { display: flex; }
 .mobile-menu li a {
@@ -698,16 +922,16 @@ footer {
   margin-top: 12px;
   text-align: center;
   padding: 14px;
-  background: var(--navy);
+  background: var(--gold);
   color: var(--white) !important;
-  border-radius: 2px;
+  border-radius: 3px;
   font-weight: 600;
   font-size: 13px;
   letter-spacing: 0.05em;
 }
-.mobile-menu .mobile-cta a:hover { background: var(--navy-hover); }
+.mobile-menu .mobile-cta a:hover { background: var(--gold-light); }
 
-/* MODALS */
+/* ── MODALS ── */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -717,6 +941,7 @@ footer {
   align-items: center;
   justify-content: center;
   padding: 20px;
+  backdrop-filter: blur(4px);
 }
 .modal-overlay.open { display: flex; }
 
@@ -725,8 +950,8 @@ footer {
   max-width: 680px;
   width: 100%;
   max-height: 85vh;
-  border-radius: 4px;
-  box-shadow: 0 24px 72px rgba(13,27,42,0.28);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(13,27,42,0.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -747,7 +972,7 @@ footer {
 
 .modal-badge {
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gold);
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -767,15 +992,16 @@ footer {
   border: none;
   cursor: pointer;
   color: var(--muted);
-  padding: 2px;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s;
+  transition: color 0.2s, background 0.2s;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: -2px;
+  border-radius: 4px;
 }
-.modal-close:hover { color: var(--navy); }
+.modal-close:hover { color: var(--navy); background: var(--off-white); }
 
 .modal-body {
   padding: 28px 36px 40px;
@@ -809,14 +1035,8 @@ footer {
 
 .modal-body p strong { color: var(--navy); font-weight: 600; }
 
-.modal-body ul {
-  margin: 4px 0 8px 18px;
-}
-.modal-body ul li {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.85;
-}
+.modal-body ul { margin: 4px 0 8px 18px; }
+.modal-body ul li { font-size: 14px; color: var(--muted); line-height: 1.85; }
 
 .modal-info-block {
   background: var(--off-white);
@@ -824,6 +1044,7 @@ footer {
   border-left: 3px solid var(--gold);
   padding: 16px 20px;
   margin-top: 12px;
+  border-radius: 0 4px 4px 0;
 }
 .modal-info-block p {
   font-size: 14px;
@@ -833,20 +1054,22 @@ footer {
   font-weight: 500;
 }
 
-/* RESPONSIVE */
+/* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   nav { padding: 0 24px; height: 72px; }
   .nav-logo img { height: 70px; }
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
   .hero { padding: 100px 24px 64px; }
-  .hero-stats-strip { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .hero-stat-item:not(:first-child) { padding-left: 0; border-left: none; }
-  .hero-stat-item:not(:last-child) { padding-right: 0; }
+  .hero-deco { display: none; }
+  .hero-stats-strip { grid-template-columns: 1fr 1fr; gap: 2px; }
   .section { padding: 72px 24px; }
-  .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .steps-connector { display: none; }
+  .step { padding: 56px 0 0 0; }
+  .step .step-num { left: 0 !important; }
   .sim-layout { grid-template-columns: 1fr; gap: 40px; }
-  .mat-grid { grid-template-columns: 1fr 1fr; }
+  .mat-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   .elig-layout { grid-template-columns: 1fr; gap: 40px; }
   .form-row { grid-template-columns: 1fr; }
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
@@ -892,13 +1115,17 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-deco" aria-hidden="true"></div>
   <div class="hero-inner">
     <div>
       <p class="hero-label">Financement professionnel B2B</p>
-      <h1 class="hero-title">Votre matériel,<br>sans attendre.</h1>
+      <h1 class="hero-title">Votre matériel,<br><em>sans attendre.</em></h1>
       <p class="hero-desc">Minipelles, nacelles, véhicules utilitaires, équipements industriels — nous finançons votre matériel professionnel jusqu'à 150 000 € HT. Réservé aux professionnels.</p>
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Déposer un dossier</a>
+        <a href="#contact" class="btn-primary">
+          Déposer un dossier
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
         <a href="#simulateur" class="btn-secondary">Simuler mon financement</a>
       </div>
     </div>
@@ -928,23 +1155,24 @@ footer {
   <div class="section-inner">
     <div class="section-label">Fonctionnement</div>
     <h2 class="section-title">Simple comme un devis.</h2>
-    <div class="steps">
-      <div class="step">
+    <div class="steps" style="position:relative;">
+      <div class="steps-connector" aria-hidden="true"></div>
+      <div class="step reveal">
         <div class="step-num">01</div>
         <h3>Vous choisissez votre matériel</h3>
         <p>Minipelle, nacelle, véhicule, équipement industriel — avec ou sans fournisseur identifié.</p>
       </div>
-      <div class="step">
+      <div class="step reveal reveal-delay-1">
         <div class="step-num">02</div>
         <h3>Nous montons le dossier</h3>
         <p>Notre équipe constitue votre dossier et le soumet à nos partenaires leaseurs sous convention cadre.</p>
       </div>
-      <div class="step">
+      <div class="step reveal reveal-delay-2">
         <div class="step-num">03</div>
         <h3>Réponse sous 48 heures</h3>
         <p>Vous recevez une offre ferme avec vos mensualités, la durée et les conditions. Aucune surprise.</p>
       </div>
-      <div class="step">
+      <div class="step reveal reveal-delay-3">
         <div class="step-num">04</div>
         <h3>Le leaseur achète, vous utilisez</h3>
         <p>La société de leasing achète le matériel. Vous payez vos loyers mensuels, déductibles de votre résultat.</p>
@@ -1029,32 +1257,50 @@ footer {
     <div class="section-label">Matériels finançables</div>
     <h2 class="section-title">Ce que nous finançons.</h2>
     <div class="mat-grid">
-      <div class="mat-card">
+      <div class="mat-card reveal">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/><path d="M12 2v4M8 6h8"/></svg>
+        </div>
         <h3>Engins de chantier</h3>
         <p>Minipelles, pelleteuses, compacteurs, chargeurs, nacelles de chantier.</p>
         <div class="mat-range">15 000 € — 150 000 € HT</div>
       </div>
-      <div class="mat-card">
+      <div class="mat-card reveal reveal-delay-1">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
         <h3>Véhicules utilitaires</h3>
         <p>Fourgons, camions, bennes, véhicules frigorifiques, flotte d'entreprise.</p>
         <div class="mat-range">15 000 € — 80 000 € HT</div>
       </div>
-      <div class="mat-card">
+      <div class="mat-card reveal reveal-delay-2">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
         <h3>Équipements industriels</h3>
         <p>Machines-outils, lignes de production, compresseurs, équipements de levage.</p>
         <div class="mat-range">10 000 € — 150 000 € HT</div>
       </div>
-      <div class="mat-card">
+      <div class="mat-card reveal">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10"/><path d="M12 6v6l4 2"/><path d="M18 2l4 4-4 4"/><path d="M22 2v4h-4"/></svg>
+        </div>
         <h3>Matériel agricole</h3>
         <p>Tracteurs, moissonneuses, irrigateurs, équipements de récolte.</p>
         <div class="mat-range">20 000 € — 150 000 € HT</div>
       </div>
-      <div class="mat-card">
+      <div class="mat-card reveal reveal-delay-1">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </div>
         <h3>Énergie & installations</h3>
         <p>Panneaux solaires, systèmes de stockage, groupes électrogènes.</p>
         <div class="mat-range">10 000 € — 100 000 € HT</div>
       </div>
-      <div class="mat-card">
+      <div class="mat-card reveal reveal-delay-2">
+        <div class="mat-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        </div>
         <h3>Autre matériel professionnel</h3>
         <p>Tout équipement professionnel durable avec valeur de revente. Étude au cas par cas.</p>
         <div class="mat-range">À partir de 5 000 € HT</div>
@@ -1072,20 +1318,40 @@ footer {
         <h2 class="section-title">Qui peut en bénéficier ?</h2>
         <ul class="elig-list">
           <li class="elig-item">
-            <strong>Entreprises — TPE, PME, ETI</strong>
-            <span>SARL, SAS, SASU, SA — toute forme juridique éligible dès immatriculation.</span>
+            <div class="elig-check" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#b8963e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>Entreprises — TPE, PME, ETI</strong>
+              <span>SARL, SAS, SASU, SA — toute forme juridique éligible dès immatriculation.</span>
+            </div>
           </li>
           <li class="elig-item">
-            <strong>Artisans & auto-entrepreneurs</strong>
-            <span>Sous conditions de chiffre d'affaires et d'ancienneté. Dossier étudié au cas par cas.</span>
+            <div class="elig-check" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#b8963e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>Artisans & auto-entrepreneurs</strong>
+              <span>Sous conditions de chiffre d'affaires et d'ancienneté. Dossier étudié au cas par cas.</span>
+            </div>
           </li>
           <li class="elig-item">
-            <strong>Professions libérales</strong>
-            <span>Médecins, avocats, architectes, experts-comptables.</span>
+            <div class="elig-check" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#b8963e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>Professions libérales</strong>
+              <span>Médecins, avocats, architectes, experts-comptables.</span>
+            </div>
           </li>
           <li class="elig-item">
-            <strong>Réservé aux professionnels</strong>
-            <span>Cohesif Leasing intervient exclusivement en B2B. Aucun financement aux particuliers.</span>
+            <div class="elig-check" aria-hidden="true">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#b8963e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <strong>Réservé aux professionnels</strong>
+              <span>Cohesif Leasing intervient exclusivement en B2B. Aucun financement aux particuliers.</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -1245,6 +1511,21 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 updateCalc();
+
+// ── Nav scroll shadow ──
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ── Scroll reveal ──
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 // ── Hamburger menu ──────────────────────────────
 window.toggleMobileMenu = function() {
