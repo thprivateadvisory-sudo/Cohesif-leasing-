@@ -581,6 +581,69 @@ footer {
 
 .footer-copy { font-size: 12px; color: var(--light-muted); }
 
+/* PARTENAIRES */
+.partenaires { background: var(--white); border-bottom: 1px solid var(--border); }
+
+.partners-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.partners-intro {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-top: -16px;
+}
+
+.partner-card {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.partner-logo-wrap {
+  width: 100%;
+  max-width: 270px;
+  margin-bottom: 32px;
+}
+
+.partner-logo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+}
+
+.partner-divider {
+  width: 28px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 18px;
+}
+
+.partner-tag {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.partner-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  text-align: center;
+}
+
 /* HAMBURGER */
 .nav-hamburger {
   display: none;
@@ -789,6 +852,8 @@ footer {
   footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
   .modal-header { padding: 22px 24px 18px; }
   .modal-body { padding: 22px 24px 32px; }
+  .partners-layout { grid-template-columns: 1fr; gap: 40px; }
+  .partner-card { padding: 36px 28px; }
 }
 
 @media (max-width: 480px) {
@@ -1035,6 +1100,27 @@ footer {
           <span class="tag">Trésorerie préservée</span>
           <span class="tag">Option d'achat finale</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section class="section partenaires" id="partenaires">
+  <div class="section-inner">
+    <div class="partners-layout">
+      <div>
+        <div class="section-label">Partenariat officiel</div>
+        <h2 class="section-title">Nos partenaires.</h2>
+        <p class="partners-intro">Cohesif Leasing s'appuie sur un réseau sélectionné de partenaires leaseurs certifiés pour structurer des offres de financement adaptées à chaque dossier et obtenir les meilleures conditions pour nos clients.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-logo-wrap">
+          <img src="IMG_3370.png" alt="Fidlease Groupe — Partenaire leaseur" class="partner-logo-img">
+        </div>
+        <div class="partner-divider"></div>
+        <p class="partner-tag">Partenaire leaseur officiel</p>
+        <p class="partner-desc">Solutions de financement locatif professionnel — partenaire de référence pour l'instruction et la structuration de vos dossiers.</p>
       </div>
     </div>
   </div>
