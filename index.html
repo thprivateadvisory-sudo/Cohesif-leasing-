@@ -686,6 +686,59 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(13,27,42,0.09); }
 }
 .tag:hover { background: rgba(184,150,62,0.13); }
 
+/* ── FAQ ── */
+.faq { background: var(--off-white); border-bottom: 1px solid var(--border); }
+
+.faq-header { margin-bottom: 44px; max-width: 560px; }
+
+.faq-list { list-style: none; border-top: 1px solid var(--border); }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+
+.faq-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.2s;
+  line-height: 1.4;
+}
+.faq-btn:hover { color: var(--gold); }
+
+.faq-plus {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--gold);
+  transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
+}
+.faq-item.open .faq-plus { transform: rotate(45deg); }
+
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.38s cubic-bezier(0.22,1,0.36,1);
+}
+.faq-item.open .faq-answer { max-height: 600px; }
+
+.faq-answer-inner {
+  padding: 0 40px 24px 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 800px;
+}
+
 /* ── CONTACT ── */
 .contact { background: var(--off-white); }
 
@@ -1177,6 +1230,7 @@ footer {
     <li><a href="#fonctionnement">Fonctionnement</a></li>
     <li><a href="#materiel">Matériels</a></li>
     <li><a href="#simulateur">Simulateur</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact" class="nav-cta">Déposer un dossier</a></li>
   </ul>
   <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu" aria-expanded="false">
@@ -1189,6 +1243,7 @@ footer {
   <li><a href="#fonctionnement" onclick="closeMobileMenu()">Fonctionnement</a></li>
   <li><a href="#materiel" onclick="closeMobileMenu()">Matériels</a></li>
   <li><a href="#simulateur" onclick="closeMobileMenu()">Simulateur</a></li>
+  <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
   <li class="mobile-cta"><a href="#contact" onclick="closeMobileMenu()">Déposer un dossier</a></li>
 </ul>
 
@@ -1510,6 +1565,115 @@ footer {
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="section faq" id="faq">
+  <div class="section-inner">
+    <div class="faq-header">
+      <div class="section-label">Questions fréquentes</div>
+      <h2 class="section-title">Ce qu'on nous demande souvent.</h2>
+    </div>
+    <ul class="faq-list">
+
+      <li class="faq-item open">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Quelle est la différence entre leasing et crédit-bail ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Le leasing (ou crédit-bail mobilier) est un contrat de location longue durée avec option d'achat en fin de contrat. Le bien reste la propriété de la société de leasing pendant toute la durée — vous payez des loyers en échange de son usage. À l'échéance, vous pouvez lever l'option d'achat à une valeur résiduelle définie à la signature, prolonger le contrat, ou restituer le matériel. C'est distinct d'un crédit classique : vous ne devenez pas propriétaire pendant le contrat, ce qui présente des avantages fiscaux et comptables spécifiques.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Puis-je financer du matériel d'occasion ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui, sous conditions. Le matériel d'occasion est éligible dès lors qu'il présente une valeur de revente réelle et un état vérifiable. Une expertise peut être demandée par le leaseur. L'âge du matériel, son état, et son historique d'entretien sont des critères déterminants. Chaque dossier est étudié au cas par cas — contactez-nous avec les caractéristiques du matériel concerné.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Faut-il obligatoirement un apport ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Non systématiquement. Dans la majorité des dossiers que nous instruisons, aucun apport n'est requis. Cela dépend de la situation financière de l'entreprise, de la nature du matériel et des conditions du leaseur. Un apport peut être demandé pour sécuriser un dossier présentant des éléments de risque spécifiques — jeune entreprise, secteur sensible, montant élevé. Nous vous précisons cela dès l'étude de faisabilité.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Mon entreprise vient de démarrer — puis-je accéder au leasing ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Les entreprises en création ou de moins de 2 ans peuvent être éligibles, sous conditions renforcées. Il est généralement demandé un apport plus important, des garanties personnelles du dirigeant, ou un nantissement. Les auto-entrepreneurs et artisans en phase de démarrage peuvent également être étudiés. Nous instruisons tous les dossiers — y compris en phase de lancement — et vous indiquons rapidement ce qui est possible.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Que se passe-t-il si je rencontre des difficultés à payer les loyers ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            En cas de difficultés de paiement, il est impératif de contacter rapidement votre interlocuteur Cohesif Leasing. Des solutions de rééchelonnement peuvent être envisagées selon la situation et les conditions du leaseur. En cas de défaut persistant non traité, le leaseur est en droit de reprendre le matériel — il en reste propriétaire pendant toute la durée du contrat. La réactivité est clé : plus la situation est traitée tôt, plus les solutions sont nombreuses.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Puis-je racheter le matériel en fin de contrat ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui. Le contrat prévoit une option d'achat (OA) dont la valeur est fixée à la signature — généralement entre 1 % et 6 % de la valeur initiale selon le leaseur et la durée. À l'échéance, trois options s'offrent à vous : lever l'option d'achat et devenir propriétaire, renouveler le financement sur un matériel neuf, ou restituer simplement le bien sans frais supplémentaires.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Quel impact le leasing a-t-il sur mon bilan comptable ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Dans le cadre d'un crédit-bail traité hors bilan, le matériel n'apparaît pas à l'actif — vous enregistrez uniquement les loyers en charges d'exploitation, intégralement déductibles. Cela améliore vos ratios de solvabilité et préserve votre capacité d'endettement. La TVA sur les loyers est intégralement récupérable. Le traitement comptable exact dépend de la structure du contrat et de votre régime fiscal — consultez votre expert-comptable pour l'optimisation spécifique à votre situation.
+          </div>
+        </div>
+      </li>
+
+      <li class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Puis-je déposer un dossier sans avoir encore choisi mon fournisseur ?
+          <svg class="faq-plus" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M11 4v14M4 11h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Oui, tout à fait. Il est possible de déposer un dossier de principe avant d'avoir sélectionné un fournisseur — pour obtenir une indication de l'enveloppe finançable et des conditions prévisionnelles. Une fois le fournisseur identifié et le devis établi, nous finalisons le dossier avec les données réelles. Cela vous permet de négocier avec les fournisseurs en ayant déjà une visibilité sur votre capacité de financement.
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="section contact" id="contact">
   <div class="section-inner">
@@ -1669,6 +1833,16 @@ async function submitForm() {
     err.style.display = 'block';
   }
 }
+
+// ── FAQ accordion ──
+window.toggleFaq = function(btn) {
+  var item = btn.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(el) {
+    el.classList.remove('open');
+  });
+  if (!isOpen) item.classList.add('open');
+};
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
