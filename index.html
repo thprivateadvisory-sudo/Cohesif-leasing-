@@ -120,7 +120,7 @@
       "@type": "Service",
       "@id": "https://cohesifleasing.fr/#service",
       "name": "Financement Leasing Équipements Professionnels",
-      "description": "Service de financement par crédit-bail (leasing) pour l'acquisition d'équipements BTP, matériaux de construction, véhicules professionnels, matériel agricole et équipements énergétiques. Montants de 5 000€ à 150 000€, durées de 24 à 84 mois, réponse en 48h.",
+      "description": "Service de financement par crédit-bail (leasing) pour l'acquisition d'équipements BTP, véhicules professionnels, matériel agricole et équipements énergétiques. Montants de 5 000€ à 150 000€, durées de 24 à 84 mois, réponse en 48h.",
       "provider": { "@id": "https://cohesifleasing.fr/#organization" },
       "serviceType": "Crédit-bail mobilier",
       "areaServed": { "@type": "Country", "name": "France" },
@@ -130,12 +130,6 @@
           "name": "Leasing Équipements BTP",
           "description": "Financement leasing d'équipements de bâtiment et travaux publics",
           "priceSpecification": { "@type": "PriceSpecification", "minPrice": 15000, "maxPrice": 150000, "priceCurrency": "EUR" }
-        },
-        {
-          "@type": "Offer",
-          "name": "Leasing Matériaux de Construction",
-          "description": "Financement leasing de matériaux de construction et négoce",
-          "priceSpecification": { "@type": "PriceSpecification", "minPrice": 5000, "maxPrice": 100000, "priceCurrency": "EUR" }
         },
         {
           "@type": "Offer",
@@ -1586,7 +1580,6 @@ footer {
           <label>Type de matériel</label>
           <select>
             <option>Engins de chantier (BTP)</option>
-            <option>Matériaux de construction</option>
             <option>Véhicules professionnels (Auto)</option>
             <option>Matériel agricole (Agro)</option>
             <option>Équipements énergie</option>
@@ -1618,15 +1611,6 @@ footer {
         <h3>Engins de chantier (BTP)</h3>
         <p>Minipelles, pelleteuses, compacteurs, chargeurs, nacelles, issus des pôles BTP du Groupe Cohesif.</p>
         <div class="mat-range">15 000 € - 150 000 € HT</div>
-      </div>
-      <div class="mat-card reveal reveal-delay-1">
-        <div class="mat-photo" style="background-image: url('IMG_3378.jpeg')"></div>
-        <div class="mat-icon" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
-        <h3>Matériaux de construction</h3>
-        <p>Placo, isolants, menuiseries, matériaux BTP en grande quantité, produits des pôles négoce et construction du Groupe.</p>
-        <div class="mat-range">5 000 € - 100 000 € HT</div>
       </div>
       <div class="mat-card reveal reveal-delay-2">
         <div class="mat-photo" style="background-image: url('IMG_3379.jpeg')"></div>
@@ -1948,7 +1932,6 @@ footer {
           <select id="f-type" name="type_materiel">
             <option value="">Sélectionner...</option>
             <option>Engins de chantier (pôle BTP)</option>
-            <option>Matériaux de construction, placo, isolants, etc. (pôle Négoce/BTP)</option>
             <option>Véhicules professionnels (pôle Auto)</option>
             <option>Matériel agricole (pôle Agro)</option>
             <option>Équipements énergie (pôle Énergie)</option>
@@ -2987,7 +2970,7 @@ document.addEventListener('keydown', function(e) {
     if (/financ|leasing|credit|bail|mensualite|loyer|taux|combien|budget|prix|cout|coute|cher/.test(t)) return intentFinancement();
 
     // ─ MATÉRIELS ─
-    if (/materiel|engin|pelleteuse|minipelle|mini.pelle|excavatrice|nacelle|elevateur|vehicule|camion|fourgon|benne|tracteur|agricole|industriel|machine|compresseur|outil|equipement|production|levage|solaire|panneau|generateur|placo|placoplatre|isolant|materiau|construction|btp/.test(t)) return intentMateriel();
+    if (/materiel|engin|pelleteuse|minipelle|mini.pelle|excavatrice|nacelle|elevateur|vehicule|camion|fourgon|benne|tracteur|agricole|industriel|machine|compresseur|outil|equipement|production|levage|solaire|panneau|generateur|construction|btp/.test(t)) return intentMateriel();
 
     // ─ CONDITIONS / ÉLIGIBILITÉ ─
     if (/eligible|eligibilite|condition|tpe|pme|eti|sarl|sas|artisan|auto.entrepreneur|liberal|medecin|avocat|architecte|entreprise|societe|immatriculation|b2b|particulier/.test(t)) return intentConditions();
@@ -3096,7 +3079,6 @@ document.addEventListener('keydown', function(e) {
     chBot(
       '📦 <strong>Produits du Groupe Cohesif finançables</strong><br><br>' +
       '🔧 Engins de chantier, pôle BTP (<strong>15 000 € – 150 000 € HT</strong>)<br>' +
-      '🧱 Matériaux de construction, placo, isolants… (<strong>5 000 € – 100 000 € HT</strong>)<br>' +
       '🚚 Véhicules professionnels, pôle Auto (<strong>15 000 € – 80 000 € HT</strong>)<br>' +
       '🌾 Matériel agricole, pôle Agro (<strong>20 000 € – 150 000 € HT</strong>)<br>' +
       '☀️ Énergie & installations, pôle Énergie (<strong>10 000 € – 100 000 € HT</strong>)<br>' +
