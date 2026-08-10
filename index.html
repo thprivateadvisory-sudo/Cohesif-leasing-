@@ -710,6 +710,73 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(13,27,42,0.09); }
   margin-top: 8px;
 }
 
+/* ── SLIDER VR ── */
+.field-slider { margin-bottom: 20px; }
+
+.field-slider > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--light-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.field-slider > label span {
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.field-slider input[type=range] {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+.field-slider input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  transition: transform 0.15s;
+}
+
+.field-slider input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+.field-slider input[type=range]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--gold);
+  cursor: pointer;
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--light-muted);
+  margin-top: 6px;
+  padding: 0 2px;
+}
+
 /* ── MATERIEL ── */
 .materiel { background: var(--off-white); border-bottom: 1px solid var(--border); }
 
@@ -1542,6 +1609,10 @@ footer {
             <span class="sim-row-value" id="d-duree">60 mois</span>
           </div>
           <div class="sim-row">
+            <span class="sim-row-label">Valeur résiduelle</span>
+            <span class="sim-row-value" id="d-vr">—</span>
+          </div>
+          <div class="sim-row">
             <span class="sim-row-label">Mensualité estimée</span>
             <span class="sim-row-value gold" id="d-mens">750 € HT / mois</span>
           </div>
@@ -1572,6 +1643,13 @@ footer {
             <option value="84">84 mois / 7 ans</option>
           </select>
         </div>
+        <div class="field-slider">
+          <label>Valeur résiduelle <span id="s-vr-pct">0 %</span></label>
+          <input type="range" id="s-vr" min="0" max="30" step="5" value="0">
+          <div class="slider-ticks">
+            <span>0 %</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30 %</span>
+          </div>
+        </div>
         <div class="field">
           <label>Type de matériel</label>
           <select>
@@ -1586,6 +1664,7 @@ footer {
           <div class="sim-result-label">Mensualité estimée</div>
           <div class="sim-result-value" id="r-mens">750 € HT</div>
           <div class="sim-result-sub">par mois sur <span id="r-duree">60</span> mois, taux indicatif</div>
+          <div class="sim-result-sub" id="r-vr-line" style="display:none;margin-top:6px;opacity:0.7;">Option d'achat : <span id="r-vr"></span> € HT en fin de contrat</div>
         </div>
         <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">Déposer mon dossier</a>
       </div>
@@ -1981,19 +2060,32 @@ footer {
 <script>
 function updateCalc() {
   const montant = parseFloat(document.getElementById('s-montant').value) || 40000;
-  const duree = parseInt(document.getElementById('s-duree').value) || 60;
+  const duree   = parseInt(document.getElementById('s-duree').value)    || 60;
+  const vrPct   = parseInt(document.getElementById('s-vr').value)       || 0;
   const taux = duree <= 24 ? 0.022 : duree <= 36 ? 0.024 : duree <= 48 ? 0.026 : duree <= 60 ? 0.028 : duree <= 72 ? 0.030 : 0.032;
-  const mens = Math.round((montant * taux / 12 + montant / duree));
-  const fmt = n => n.toLocaleString('fr-FR');
-  document.getElementById('r-mens').textContent = fmt(mens) + ' € HT';
-  document.getElementById('r-duree').textContent = duree;
-  document.getElementById('d-montant').textContent = fmt(montant) + ' € HT';
-  document.getElementById('d-duree').textContent = duree + ' mois';
-  document.getElementById('d-mens').textContent = fmt(mens) + ' € HT / mois';
+  const vr   = Math.round(montant * vrPct / 100);
+  const base = montant - vr;
+  const mens = Math.round(base * taux / 12 + base / duree);
+  const fmt  = n => n.toLocaleString('fr-FR');
+  document.getElementById('s-vr-pct').textContent     = vrPct + ' %';
+  document.getElementById('r-mens').textContent       = fmt(mens) + ' € HT';
+  document.getElementById('r-duree').textContent      = duree;
+  document.getElementById('d-montant').textContent    = fmt(montant) + ' € HT';
+  document.getElementById('d-duree').textContent      = duree + ' mois';
+  document.getElementById('d-vr').textContent         = vr > 0 ? fmt(vr) + ' € HT' : '—';
+  document.getElementById('d-mens').textContent       = fmt(mens) + ' € HT / mois';
+  const vrLine = document.getElementById('r-vr-line');
+  if (vr > 0) {
+    document.getElementById('r-vr').textContent = fmt(vr);
+    vrLine.style.display = '';
+  } else {
+    vrLine.style.display = 'none';
+  }
 }
 
 document.getElementById('s-montant').addEventListener('input', updateCalc);
 document.getElementById('s-duree').addEventListener('change', updateCalc);
+document.getElementById('s-vr').addEventListener('input', updateCalc);
 
 async function submitForm() {
   var nom     = document.getElementById('f-nom').value.trim();
