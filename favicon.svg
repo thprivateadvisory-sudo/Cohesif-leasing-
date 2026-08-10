@@ -1,4 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#0d1b2a"/>
-  <text x="32" y="43" font-family="Georgia, serif" font-size="28" font-weight="700" text-anchor="middle" fill="#b8963e">CL</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <rect width="100" height="100" rx="12" fill="white"/>
+  <!-- Navy angular C shape -->
+  <polygon points="13,10 63,10 76,27 56,38 36,38 36,62 56,62 76,73 63,90 13,90" fill="#0d1b2a"/>
+  <!-- Gold chevron > -->
+  <polygon points="58,36 88,50 58,64 70,50" fill="#b8963e"/>
 </svg>
