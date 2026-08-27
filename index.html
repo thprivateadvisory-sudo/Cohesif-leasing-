@@ -1598,7 +1598,7 @@ footer {
       <div>
         <div class="section-label">Simulation rapide</div>
         <h2 class="section-title">Estimez vos mensualités en 30 secondes.</h2>
-        <p class="sim-desc">Simulation basée sur les coefficients Fidlease Groupe. Loyer HT = montant HT × coefficient de la durée choisie. Offre sous réserve d'acceptation par le comité d'engagement.</p>
+        <p class="sim-desc">Les chiffres sont indicatifs, les conditions définitives dépendent de votre dossier. L'offre ferme est transmise sous 48h après instruction.</p>
         <div class="sim-detail">
           <div class="sim-row">
             <span class="sim-row-label">Valeur du matériel</span>
@@ -1607,6 +1607,10 @@ footer {
           <div class="sim-row">
             <span class="sim-row-label">Durée</span>
             <span class="sim-row-value" id="d-duree">60 mois</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-row-label">Valeur résiduelle</span>
+            <span class="sim-row-value" id="d-vr">—</span>
           </div>
           <div class="sim-row">
             <span class="sim-row-label">Mensualité estimée</span>
@@ -1635,16 +1639,26 @@ footer {
         <div class="field">
           <label>Durée du financement</label>
           <select id="s-duree">
+            <option value="24">24 mois / 2 ans</option>
             <option value="36">36 mois / 3 ans</option>
             <option value="48">48 mois / 4 ans</option>
             <option value="60" selected>60 mois / 5 ans</option>
+            <option value="72">72 mois / 6 ans</option>
+            <option value="84">84 mois / 7 ans</option>
           </select>
+        </div>
+        <div class="field-slider">
+          <label>Valeur résiduelle <span id="s-vr-pct">0 %</span></label>
+          <input type="range" id="s-vr" min="0" max="30" step="5" value="0">
+          <div class="slider-ticks">
+            <span>0 %</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30 %</span>
+          </div>
         </div>
         <div class="sim-result">
           <div class="sim-result-label">Mensualité estimée</div>
           <div class="sim-result-value" id="r-mens">804 € HT</div>
-          <div class="sim-result-sub">par mois sur <span id="r-duree">60</span> mois · Fidlease Groupe</div>
-          <div class="sim-result-sub" style="margin-top:6px;opacity:0.75;">+ 200 € HT frais de dossier (unique)</div>
+          <div class="sim-result-sub">par mois sur <span id="r-duree">60</span> mois, indicatif</div>
+          <div class="sim-result-sub" id="r-vr-line" style="display:none;margin-top:6px;opacity:0.7;">Option d'achat : <span id="r-vr"></span> € HT en fin de contrat</div>
         </div>
         <a href="#contact" class="btn-primary" style="width:100%;justify-content:center;">Déposer mon dossier</a>
       </div>
@@ -2041,19 +2055,32 @@ footer {
 function updateCalc() {
   const montant = parseFloat(document.getElementById('s-montant').value) || 40000;
   const duree   = parseInt(document.getElementById('s-duree').value)    || 60;
-  const coeffs  = { 36: 0.0317, 48: 0.0244, 60: 0.0201 };
+  const vrPct   = parseInt(document.getElementById('s-vr').value)       || 0;
+  const coeffs  = { 24: 0.0450, 36: 0.0317, 48: 0.0244, 60: 0.0201, 72: 0.0172, 84: 0.0155 };
   const coeff   = coeffs[duree] || 0.0201;
-  const mens    = Math.round(montant * coeff);
+  const vr      = Math.round(montant * vrPct / 100);
+  const base    = montant - vr;
+  const mens    = Math.round(base * coeff);
   const fmt     = n => n.toLocaleString('fr-FR');
+  document.getElementById('s-vr-pct').textContent  = vrPct + ' %';
   document.getElementById('r-mens').textContent    = fmt(mens) + ' € HT';
   document.getElementById('r-duree').textContent   = duree;
   document.getElementById('d-montant').textContent = fmt(montant) + ' € HT';
   document.getElementById('d-duree').textContent   = duree + ' mois';
+  document.getElementById('d-vr').textContent      = vr > 0 ? fmt(vr) + ' € HT' : '—';
   document.getElementById('d-mens').textContent    = fmt(mens) + ' € HT / mois';
+  const vrLine = document.getElementById('r-vr-line');
+  if (vr > 0) {
+    document.getElementById('r-vr').textContent = fmt(vr);
+    vrLine.style.display = '';
+  } else {
+    vrLine.style.display = 'none';
+  }
 }
 
 document.getElementById('s-montant').addEventListener('input', updateCalc);
 document.getElementById('s-duree').addEventListener('change', updateCalc);
+document.getElementById('s-vr').addEventListener('input', updateCalc);
 
 async function submitForm() {
   var nom     = document.getElementById('f-nom').value.trim();
@@ -3112,15 +3139,14 @@ document.addEventListener('keydown', function(e) {
 
   function intentFinancement() {
     chBot(
-      '💰 <strong>Notre financement (Fidlease Groupe)</strong><br><br>' +
+      '💰 <strong>Notre financement</strong><br><br>' +
       '💶 Montant : de <strong>5 000 € à 150 000 € HT</strong><br>' +
-      '📅 Durée : <strong>36, 48 ou 60 mois</strong><br>' +
-      '📊 Coefficients : <strong>36 m = 3,17 %</strong> · <strong>48 m = 2,44 %</strong> · <strong>60 m = 2,01 %</strong><br>' +
+      '📅 Durée : de <strong>24 à 84 mois</strong><br>' +
       '🗂️ Frais de dossier : <strong>200 € HT</strong><br>' +
       '💳 Apport : <strong>0 € selon dossier</strong><br>' +
       '⏱️ Réponse sous <strong>48h</strong> après dépôt<br>' +
       '✅ Loyers 100 % déductibles<br><br>' +
-      'Exemple : 30 000 € HT sur 60 mois → <strong>603 € HT / mois</strong>. Offre sous réserve d\'acceptation par le comité d\'engagement.',
+      'Simulation indicative disponible sur le site. Offre ferme sous 48h.',
       [
         { l: '📊 Simuler mon financement', v: 'simulateur' },
         { l: '📋 Déposer un dossier',      v: 'dossier' }
